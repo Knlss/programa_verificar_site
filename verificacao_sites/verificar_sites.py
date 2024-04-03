@@ -29,6 +29,17 @@ def save_value():
     global column_value
     column_value = entry.get()
 
+def definir_valor_apagar_depois():
+    if checkbox_var1.get():
+        font_size_e = 11
+    else:
+        font_size_e = 11
+        # essa definição é so pra não ficar como erro.
+        """
+        Essa parte vai funcionar da seguinte forma:
+            vai ativar novamente o input de texto que define o valor da variavel font size, enquanto o de cima desativa alem de alterar pra 11
+        """
+
 def process_file():
     border_color = '000000'  # Cor em formato hexadecimal (por exemplo, preto)
     font_color_acessible = '4B0082'  # Cor preta
@@ -138,13 +149,23 @@ def process_file():
         else:
             status_label.config(text="No column value entered. Please enter a column value first.")
 
-# Criar a janela principal
+# Criar a root principal
 root = tk.Tk()
+
+largura_root = 1000
+altura_root = 400
+root.geometry(f"{largura_root}x{altura_root}")
+
 root.title("Site Verifier")
+
+checkbox_var1 = tk.BooleanVar()
 
 # Criar um botão para abrir o arquivo Excel
 open_button = tk.Button(root, text="Open Excel File", command=process_file)
 open_button.pack(pady=10)
+
+default_value = tk.Checkbutton(root, text="Apagar depois", variable=checkbox_var1, command=definir_valor_apagar_depois)
+default_value.pack(anchor=tk.W)
 
 # Campo de entrada para aceitar um caractere
 entry_frame = tk.Frame(root)
