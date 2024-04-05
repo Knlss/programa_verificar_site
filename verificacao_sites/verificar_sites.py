@@ -20,26 +20,39 @@ border_color = '000000'  # Cor em formato hexadecimal (por exemplo, preto)
 font_color_acessible = '4B0082'  # Cor preta
 font_color_inacessible = '006400'  # Cor vermelha
 font_color_timeout = '00008B'  # Cor azul
-
 cell_border_left = None
 cell_border_right = None
 cell_border_top = None
 cell_border_bottom = None
-
 end_border_edges_top = None
 end_border_edges_bottom = None
-
 title_border_left = None
 title_border_right = None
 title_border_top = None
 title_border_bottom = None
-
 timeout_sites = 0
 accessible_sites = 0  # Definir a variável accessible_sites com um valor inicial
 inaccessible_sites = -1  # Definir a variável inaccessible_sites com um valor inicial
 verified_sites = 0  # Definir a variável verified_sites com um valor inicial
 alignment_cell = Alignment(horizontal='center', vertical='center')
 cell_e1_text = "COLUMN B - STATUS"
+
+root = tk.Tk()
+cell_border_left_config = tk.BooleanVar()
+cell_border_right_config = tk.BooleanVar()
+cell_border_top_config = tk.BooleanVar()
+cell_border_bottom_config = tk.BooleanVar()
+title_border_left_config = tk.BooleanVar()
+title_border_right_config = tk.BooleanVar()
+title_border_top_config = tk.BooleanVar()
+title_border_bottom_config = tk.BooleanVar()
+end_border_edges_config = tk.BooleanVar()
+
+def root_click(event):
+    if event.num == 1:  # Verifica se o evento é um clique esquerdo do mouse
+        if not isinstance(event.widget, tk.Button) and not isinstance(event.widget.master, tk.Frame):
+            menu_cores.pack_forget()
+            print(border_color)
 
 def check_access(site):
     try:
@@ -56,15 +69,24 @@ def default_return():
     global font_size_e, border_color, font_color_acessible, font_color_inacessible, font_color_timeout, cell_border_left, cell_border_right, cell_border_top, cell_border_bottom, end_border_edges_top, end_border_edges_bottom, title_border_left, title_border_right, title_border_top, title_border_bottom, alignment_cell, cell_e1_text
 
     if return_default_value.get():
-        checkbox1.config(state="normal")
-        checkbox2.config(state="normal")
-        checkbox3.config(state="normal")
-        checkbox4.config(state="normal")
-        checkbox5.config(state="normal")
-        checkbox6.config(state="normal")
-        checkbox7.config(state="normal")
-        checkbox8.config(state="normal")
-        checkbox9.config(state="normal")
+        checkbox1.config(state="disabled")
+        checkbox2.config(state="disabled")
+        checkbox3.config(state="disabled")
+        checkbox4.config(state="disabled")
+        checkbox5.config(state="disabled")
+        checkbox6.config(state="disabled")
+        checkbox7.config(state="disabled")
+        checkbox8.config(state="disabled")
+        checkbox9.config(state="disabled")
+        cell_border_right_config.set(False)
+        cell_border_left_config.set(False)
+        cell_border_top_config.set(False)
+        cell_border_bottom_config.set(False)
+        title_border_right_config.set(False)
+        title_border_left_config.set(False)
+        title_border_top_config.set(False)
+        title_border_bottom_config.set(False)
+        end_border_edges_config.set(True)
 
         font_size_e = 11
         border_color = '000000'  # Cor em formato hexadecimal (por exemplo, preto)
@@ -83,8 +105,23 @@ def default_return():
         title_border_bottom = None
         alignment_cell = Alignment(horizontal='center', vertical='center')
         cell_e1_text = "COLUMN B - STATUS"
+        border_config()
     else:
+        checkbox1.config(state="normal")
         checkbox2.config(state="normal")
+        checkbox3.config(state="normal")
+        checkbox4.config(state="normal")
+        checkbox5.config(state="normal")
+        checkbox6.config(state="normal")
+        checkbox7.config(state="normal")
+        checkbox8.config(state="normal")
+        checkbox9.config(state="normal")
+
+def toggle_menu():
+    if menu_cores.winfo_ismapped():
+        menu_cores.pack_forget()  # Oculta o menu de cores
+    else:
+        menu_cores.pack()
 
 def border_config():
     global cell_border_left
@@ -151,6 +188,36 @@ def border_config():
         end_border_edges_top = None
         end_border_edges_bottom = None
 
+def mudar_cor(cor):
+    global border_color
+
+    border_alt_color.configure(bg=cor)
+    menu_cores.pack_forget()
+    if cor == "#000000":
+        border_alt_color.configure(fg="white")
+    else:
+        border_alt_color.configure(fg="black")
+
+    if cor.startswith('#'):
+        border_color = cor[1:]  # Remover '#' do início, se presente
+    else:
+        # Converter nome da cor para aRGB hexadecimal
+        border_color = tk.colorchooser.color_to_rgb(cor).rgb[1:]
+
+
+
+    border_config()
+
+checkbox1 = tk.Checkbutton(root, text="Borda Direita da Célula ", variable=cell_border_right_config, command=border_config)
+checkbox2 = tk.Checkbutton(root, text="Borda Esquerda da Célula ", variable=cell_border_left_config, command=border_config)
+checkbox3 = tk.Checkbutton(root, text="Borda Superior da Célula ", variable=cell_border_top_config, command=border_config)
+checkbox4 = tk.Checkbutton(root, text="Borda Inferior do Título ", variable=cell_border_bottom_config, command=border_config)
+checkbox5 = tk.Checkbutton(root, text="Borda Direita do Título ", variable=title_border_right_config, command=border_config)
+checkbox6 = tk.Checkbutton(root, text="Borda Esquerda do Título ", variable=title_border_left_config, command=border_config)
+checkbox7 = tk.Checkbutton(root, text="Borda Superior do Título ", variable=title_border_top_config, command=border_config)
+checkbox8 = tk.Checkbutton(root, text="Borda Inferior do Título ", variable=title_border_bottom_config, command=border_config)
+checkbox9 = tk.Checkbutton(root, text="Borda das Extremidades", variable=end_border_edges_config, command=border_config)
+
 def save_value():
     global input_column_value
     global output_column_value
@@ -158,6 +225,7 @@ def save_value():
     output_column_value = entry_output.get()
 
 def process_file():
+
     global verified_sites
     global inaccessible_sites
     global accessible_sites
@@ -237,9 +305,9 @@ def process_file():
                                 cell.border = Border(left=cell_border_left, right=cell_border_right, top=cell_border_top, bottom=cell_border_bottom)
                                 
                             e2_cell = ws[f'{output_column_value}2']
-                            e2_cell.border = Border(left=cell_border_left, right=cell_border_right, top=end_border_edges_top, bottom=end_border_edges_bottom)
+                            e2_cell.border = Border(left=cell_border_left, right=cell_border_right, top=end_border_edges_top, bottom=cell_border_bottom)
                             ex_cell = ws[f'{output_column_value}{verified_sites + 1}']
-                            ex_cell.border = Border(left=cell_border_left, right=cell_border_right, top=end_border_edges_top, bottom=end_border_edges_bottom)
+                            ex_cell.border = Border(left=cell_border_left, right=cell_border_right, top=cell_border_top, bottom=end_border_edges_bottom)
 
                             # Definir a largura da coluna E
                             largura_coluna_B = ws.column_dimensions[column_letter].width
@@ -253,7 +321,6 @@ def process_file():
             status_label.config(text="No column value entered. Please enter a column value first.")
 
 # Criar a root principal
-root = tk.Tk()
 
 largura_root = 1000
 altura_root = 400
@@ -263,46 +330,53 @@ root.title("Site Verifier")
 
 return_default_value = tk.BooleanVar()
 
-cell_border_left_config = tk.BooleanVar()
-cell_border_right_config = tk.BooleanVar()
-cell_border_top_config = tk.BooleanVar()
-cell_border_bottom_config = tk.BooleanVar()
-
-title_border_left_config = tk.BooleanVar()
-title_border_right_config = tk.BooleanVar()
-title_border_top_config = tk.BooleanVar()
-title_border_bottom_config = tk.BooleanVar()
-
-end_border_edges_config = tk.BooleanVar()
-
 # Criar um botão para abrir o arquivo Excel
 open_button = tk.Button(root, text="Open Excel File", command=process_file)
 open_button.pack(pady=10)
 
 default_value = tk.Checkbutton(root, text="Retornar ao padrão", variable=return_default_value, command=default_return)
 default_value.pack(anchor=tk.W)
+default_value.select()
+default_return()
 
-checkbox1 = tk.Checkbutton(root, text="Borda Direita da Célula ", variable=cell_border_right_config, command=border_config)
 checkbox1.pack(anchor=tk.W)
-checkbox2 = tk.Checkbutton(root, text="Borda Esquerda da Célula ", variable=cell_border_left_config, command=border_config)
 checkbox2.pack(anchor=tk.W)
-checkbox3 = tk.Checkbutton(root, text="Borda Superior da Célula ", variable=cell_border_top_config, command=border_config)
 checkbox3.pack(anchor=tk.W)
-checkbox4 = tk.Checkbutton(root, text="Borda Inferior do Título ", variable=cell_border_bottom_config, command=border_config)
 checkbox4.pack(anchor=tk.W)
-
-checkbox5 = tk.Checkbutton(root, text="Borda Direita do Título ", variable=title_border_right_config, command=border_config)
 checkbox5.pack(anchor=tk.W)
-checkbox6 = tk.Checkbutton(root, text="Borda Esquerda do Título ", variable=title_border_left_config, command=border_config)
 checkbox6.pack(anchor=tk.W)
-checkbox7 = tk.Checkbutton(root, text="Borda Superior do Título ", variable=title_border_top_config, command=border_config)
 checkbox7.pack(anchor=tk.W)
-checkbox8 = tk.Checkbutton(root, text="Borda Inferior do Título ", variable=title_border_bottom_config, command=border_config)
 checkbox8.pack(anchor=tk.W)
-
-checkbox9 = tk.Checkbutton(root, text="Borda das Extremidades", variable=end_border_edges_config, command=border_config)
 checkbox9.pack(anchor=tk.W)
 
+# Criando o botão inicial
+border_alt_color = tk.Button(root, text="☰", fg="black", width=5, height=2, command=toggle_menu)
+border_alt_color.pack(padx=10, pady=10)
+
+border_alt_color.configure(bg="black")
+border_alt_color.configure(fg="white")
+
+# Criando o frame para o menu de cores
+menu_cores = tk.Frame(root)
+cores = ["#FF0000", "#00FF00", "#0000FF", "#FFFF00", "#FFA500", "#800080", "#000000", "#FFFFFF"]
+
+frame_linha1 = tk.Frame(menu_cores)
+frame_linha2 = tk.Frame(menu_cores)
+
+for i in range(4):
+    button_color = tk.Button(frame_linha1, bg=cores[i], width=5, height=2, command=lambda c=cores[i]: mudar_cor(c))
+    button_color.pack(side=tk.LEFT, padx=5, pady=5)
+
+for i in range(4, 8):
+    button_color = tk.Button(frame_linha2, bg=cores[i], width=5, height=2, command=lambda c=cores[i]: mudar_cor(c))
+    button_color.pack(side=tk.LEFT, padx=5, pady=5)
+
+frame_linha1.pack()
+frame_linha2.pack()
+
+menu_cores.pack_forget()
+
+root.bind("<Button-1>", root_click)
 
 # Campo de entrada para aceitar um caractere
 entry_input_column = tk.Frame(root)
