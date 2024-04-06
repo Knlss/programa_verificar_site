@@ -15,7 +15,7 @@ warnings.filterwarnings("ignore", category=InsecureRequestWarning)
 # Inicializar a variável global timeout_sites
 input_column_value = None
 output_column_value = None
-font_size_e = 11
+font_size_e = None
 border_color = '000000'  # Cor em formato hexadecimal (por exemplo, preto)
 font_color_acessible = '4B0082'  # Cor preta
 font_color_inacessible = '006400'  # Cor vermelha
@@ -48,11 +48,39 @@ title_border_top_config = tk.BooleanVar()
 title_border_bottom_config = tk.BooleanVar()
 end_border_edges_config = tk.BooleanVar()
 
+# Campo de entrada para aceitar tamanho da fonte
+entry_cell_font = tk.Frame(root)
+entry_cell_font.pack(pady=5)
+entry_font_label = tk.Label(entry_cell_font, text="Enter a font size (8-18):")
+entry_font_label.pack(side=tk.LEFT)
+entry_font = tk.Entry(entry_cell_font, width=5)
+entry_font.pack(side=tk.LEFT)
+
+# Campo de entrada para aceitar nome da célula 1
+entry_title_name = tk.Frame(root)
+entry_title_name.pack(pady=5)
+entry_title_label = tk.Label(entry_title_name, text="Enter a title name (max 15 chars):")
+entry_title_label.pack(side=tk.LEFT)
+
+
+def check_font(font):
+    if int(font) >= 8 and int(font) <= 18:
+        return True
+    else:
+        return False
+
+def validate_entry(text):
+    return len(text) <= 15
+    
+validate_cmd = root.register(validate_entry)
+entry_title = tk.Entry(entry_title_name, validate="key", width=20, validatecommand=(validate_cmd, '%P'))
+entry_title.pack(side=tk.LEFT)
+
 def root_click(event):
     if event.num == 1:  # Verifica se o evento é um clique esquerdo do mouse
         if not isinstance(event.widget, tk.Button) and not isinstance(event.widget.master, tk.Frame):
             menu_cores.pack_forget()
-            print(border_color)
+            print(font_size_e)
 
 def check_access(site):
     try:
@@ -78,6 +106,12 @@ def default_return():
         checkbox7.config(state="disabled")
         checkbox8.config(state="disabled")
         checkbox9.config(state="disabled")
+
+
+        entry_font.delete(0, "end")  # Limpa o Entry
+        entry_font.insert(0, 11)  # Define o texto padrão
+        entry_font.config(state="disabled")
+
         cell_border_right_config.set(False)
         cell_border_left_config.set(False)
         cell_border_top_config.set(False)
@@ -116,6 +150,8 @@ def default_return():
         checkbox7.config(state="normal")
         checkbox8.config(state="normal")
         checkbox9.config(state="normal")
+
+        entry_font.config(state="normal")
 
 def toggle_menu():
     if menu_cores.winfo_ismapped():
@@ -204,8 +240,6 @@ def mudar_cor(cor):
         # Converter nome da cor para aRGB hexadecimal
         border_color = tk.colorchooser.color_to_rgb(cor).rgb[1:]
 
-
-
     border_config()
 
 checkbox1 = tk.Checkbutton(root, text="Borda Direita da Célula ", variable=cell_border_right_config, command=border_config)
@@ -221,8 +255,14 @@ checkbox9 = tk.Checkbutton(root, text="Borda das Extremidades", variable=end_bor
 def save_value():
     global input_column_value
     global output_column_value
+    global font_size_e
     input_column_value = entry_input.get()
     output_column_value = entry_output.get()
+    if check_font(entry_font.get()):
+        font_size_e = entry_font.get()
+    else:
+        status_label.config(text="Font size should be between 8 and 18.", fg="red")
+
 
 def process_file():
 
@@ -243,7 +283,11 @@ def process_file():
         ws = wb.active
 
         # Definir o nome do novo arquivo Excel que será criado
-        output_filename = os.path.join(os.path.expanduser("~/Documents/output_folder"), os.path.splitext(os.path.basename(filename))[0] + '_result2.xlsx')
+        output_folder = os.path.expanduser("~/Documents/output_folder")
+        if not os.path.exists(output_folder):
+            os.makedirs(output_folder)
+
+        output_filename = os.path.join(output_folder, os.path.splitext(os.path.basename(filename))[0] + '_result2.xlsx')
 
         # Verificar se input_column_value está definido
         if input_column_value is not None:
@@ -378,29 +422,25 @@ menu_cores.pack_forget()
 
 root.bind("<Button-1>", root_click)
 
-# Campo de entrada para aceitar um caractere
+# Campo de entrada para aceitar um caractere de entrada
 entry_input_column = tk.Frame(root)
 entry_input_column.pack(pady=10)
-
-entry_output_column = tk.Frame(root)
-entry_output_column.pack(pady=10)
-
 entry_input_label = tk.Label(entry_input_column, text="Enter a input column letter (A-Z):")
 entry_input_label.pack(side=tk.LEFT)
-
-entry_output_label = tk.Label(entry_output_column, text="Enter a output column letter (A-Z):")
-entry_output_label.pack(side=tk.LEFT)
-
 entry_input = tk.Entry(entry_input_column, width=5)
 entry_input.pack(side=tk.LEFT)
 entry_input.focus_set()
 
+# Campo de entrada para aceitar um caractere de saída
+entry_output_column = tk.Frame(root)
+entry_output_column.pack(pady=10)
+entry_output_label = tk.Label(entry_output_column, text="Enter a output column letter (A-Z):")
+entry_output_label.pack(side=tk.LEFT)
 entry_output = tk.Entry(entry_output_column, width=5)
 entry_output.pack(side=tk.LEFT)
-entry_output.focus_set()
 
 # Botão para salvar o caractere
-save_button = tk.Button(entry_input_column, text="Save", command=save_value)
+save_button = tk.Button(text="Save", command=save_value)
 save_button.pack(side=tk.LEFT)
 
 # Rótulo para exibir o status
