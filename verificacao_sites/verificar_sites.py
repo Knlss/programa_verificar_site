@@ -39,6 +39,9 @@ verified_sites = 0  # Definir a variável verified_sites com um valor inicial
 alignment_cell = Alignment(horizontal='center', vertical='center')
 cell_e1_text = "COLUMN B - STATUS"
 
+button_list_frame_packed = False
+
+
 root = tk.Tk()
 cell_border_left_config = tk.BooleanVar()
 cell_border_right_config = tk.BooleanVar()
@@ -50,26 +53,47 @@ title_border_top_config = tk.BooleanVar()
 title_border_bottom_config = tk.BooleanVar()
 end_border_edges_config = tk.BooleanVar()
 
-# Campo de entrada para aceitar tamanho da fonte
-entry_cell_font = tk.Frame(root)
-entry_cell_font.pack(pady=5)
-entry_font_label = tk.Label(entry_cell_font, text="Enter a font size (8-18):")
-entry_font_label.pack(side=tk.LEFT)
-entry_font = tk.Entry(entry_cell_font, width=5)
-entry_font.pack(side=tk.LEFT)
-
 # Campo de entrada para aceitar nome da célula 1
 entry_title_name = tk.Frame(root)
 entry_title_name.pack(pady=5)
 entry_title_label = tk.Label(entry_title_name, text="Enter a title name (max 15 chars):")
 entry_title_label.pack(side=tk.LEFT)
 
+def button_click(item):
+    print(f"Botão clicado: {item}")
 
-def check_font(font):
-    if int(font) >= 8 and int(font) <= 18:
-        return True
+def create_buttons(canvas):
+    button_frame = tk.Frame(canvas, width=30, height=30)
+    canvas.create_window((0, 0), window=button_frame, anchor='nw')
+    for item in range(7, 18):  # Ajuste o número de botões conforme necessário
+        number = item + 1
+        button = tk.Button(button_frame, text=number, width=8, height=1, font=("Helvetica", 6), command=lambda number=number: set_font_size(number))
+        button.pack(side=tk.TOP)
+    # Atualiza a área de rolagem do canvas
+    button_frame.update_idletasks()
+    canvas.config(scrollregion=canvas.bbox("all"))
+
+def on_canvas_scroll(event):
+    button_list_canvas.yview_scroll(-1 * int(event.delta/40), "units")
+
+def manage_scroll_events(event):
+    if event.type == "7":  # Enter event
+        button_list_canvas.bind_all("<MouseWheel>", on_canvas_scroll)
+    elif event.type == "8":  # Leave event
+        button_list_canvas.unbind_all("<MouseWheel>")
+
+def toggle_button_list_frame():
+    if button_list_frame.winfo_ismapped():
+        button_list_frame.pack_forget()
+        button_list_canvas.yview_moveto(0)        
     else:
-        return False
+        button_list_frame.pack()
+    
+def set_font_size(font_size):
+    global font_size_e
+    font_size_e = font_size
+    button_list_frame.pack_forget()
+
 
 def validate_entry(text):
     return len(text) <= 15
@@ -82,7 +106,10 @@ def root_click(event):
     if event.num == 1:  # Verifica se o evento é um clique esquerdo do mouse
         if not isinstance(event.widget, tk.Button) and not isinstance(event.widget.master, tk.Frame):
             menu_cores.pack_forget()
+            button_list_frame.pack_forget()
+            button_list_canvas.yview_moveto(0) 
             print(font_size_e)
+
 
 def check_access(site):
     try:
@@ -109,10 +136,6 @@ def default_return():
         checkbox8.config(state="disabled")
         checkbox9.config(state="disabled")
 
-
-        entry_font.delete(0, "end")  # Limpa o Entry
-        entry_font.insert(0, 11)  # Define o texto padrão
-        entry_font.config(state="disabled")
 
         cell_border_right_config.set(False)
         cell_border_left_config.set(False)
@@ -152,8 +175,6 @@ def default_return():
         checkbox7.config(state="normal")
         checkbox8.config(state="normal")
         checkbox9.config(state="normal")
-
-        entry_font.config(state="normal")
 
 def toggle_menu():
     if menu_cores.winfo_ismapped():
@@ -257,13 +278,8 @@ checkbox9 = tk.Checkbutton(root, text="Borda das Extremidades", variable=end_bor
 def save_value():
     global input_column_value
     global output_column_value
-    global font_size_e
     input_column_value = entry_input.get()
     output_column_value = entry_output.get()
-    if check_font(entry_font.get()):
-        font_size_e = entry_font.get()
-    else:
-        status_label.config(text="Font size should be between 8 and 18.", fg="red")
 
 
 def process_file():
@@ -368,8 +384,19 @@ def process_file():
 
 # Criar a root principal
 
+button_list_frame = tk.Frame(root, width=58, height=58)
+button_list_frame.pack(side=tk.RIGHT, pady=30)
+
+button_list_canvas = tk.Canvas(button_list_frame, width=52, height=52)
+button_list_canvas.pack(side=tk.LEFT, fill=tk.Y, expand=True)
+
+toggle_button = tk.Button(root, text="Toggle Button List Frame", command=toggle_button_list_frame)
+toggle_button.pack(side=tk.RIGHT)
+
+button_list_frame.pack_forget()
+
 largura_root = 1000
-altura_root = 400
+altura_root = 600
 root.geometry(f"{largura_root}x{altura_root}")
 
 root.title("Site Verifier")
@@ -448,6 +475,12 @@ save_button.pack(side=tk.LEFT)
 # Rótulo para exibir o status
 status_label = tk.Label(root, text="")
 status_label.pack()
+
+create_buttons(button_list_canvas)
+
+
+button_list_canvas.bind("<Enter>", manage_scroll_events)
+button_list_canvas.bind("<Leave>", manage_scroll_events)
 
 # Iniciar o loop de eventos
 root.mainloop()
