@@ -1,3 +1,5 @@
+"""É possível criar uma "lista" que aparece quando um botão é clicado, que contem itens mas esses itens não aparecem todos de uma vez, então tem que dar scroll pra aparecer o resto, enquanto o inicio some?"""
+
 import tkinter as tk
 from tkinter import filedialog
 import os
