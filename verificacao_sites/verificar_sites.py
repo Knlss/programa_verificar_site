@@ -15,6 +15,8 @@ from urllib3.exceptions import InsecureRequestWarning
 warnings.filterwarnings("ignore", category=InsecureRequestWarning)
 
 # Inicializar a variável global timeout_sites
+files_dict = {'file': None, 'filename': None, 'future_filename': None, 'directory': None}
+
 input_column_value = None
 output_column_value = None
 font_size_e = None
@@ -105,7 +107,7 @@ entry_title.pack(side=tk.LEFT)
 def root_click(event):
     if event.num == 1:  # Verifica se o evento é um clique esquerdo do mouse
         if not isinstance(event.widget, tk.Button) and not isinstance(event.widget.master, tk.Frame):
-            menu_cores.pack_forget()
+            color_menu_border.pack_forget()
             button_list_frame.pack_forget()
             button_list_canvas.yview_moveto(0) 
             print(font_size_e)
@@ -176,11 +178,37 @@ def default_return():
         checkbox8.config(state="normal")
         checkbox9.config(state="normal")
 
+def file_selector():
+    excel_file = filedialog.askopenfilename(filetypes=[("Excel Files", "*.xlsx"), ("All Files", "*.*")])
+    excel_filename = os.path.splitext(os.path.basename(excel_file))[0]
+    excel_future_name = excel_filename + '_result.xlsx'
+
+    inf_saves(excel_file, excel_filename, excel_future_name)
+
+def directory_selector():
+    directory = filedialog.askdirectory()
+
+    inf_saves(directory=directory)
+
+def inf_saves(file=None, filename=None, future_filename=None, directory=None):
+    if file != None:
+        files_dict["file"] = file
+        files_dict["filename"] = filename
+        files_dict["future_filename"] = future_filename
+    if directory != None:
+        files_dict["directory"] = directory
+
 def toggle_menu():
-    if menu_cores.winfo_ismapped():
-        menu_cores.pack_forget()  # Oculta o menu de cores
+    if color_menu_border.winfo_ismapped():
+        color_menu_border.pack_forget()  # Oculta o menu de cores
     else:
-        menu_cores.pack()
+        color_menu_border.pack()
+
+def toggle_menu_color():
+    if color_menu_acessible.winfo_ismapped():
+        color_menu_acessible.pack_forget()  # Oculta o menu de cores
+    else:
+        color_menu_acessible.pack()
 
 def border_config():
     global cell_border_left
@@ -251,7 +279,7 @@ def mudar_cor(cor):
     global border_color
 
     border_alt_color.configure(bg=cor)
-    menu_cores.pack_forget()
+    color_menu_border.pack_forget()
     if cor == "#000000":
         border_alt_color.configure(fg="white")
     else:
@@ -290,22 +318,18 @@ def process_file():
     global timeout_sites
 
     # Solicitar ao usuário que selecione o arquivo Excel
-    filename = filedialog.askopenfilename(filetypes=[("Excel Files", "*.xlsx"), ("All Files", "*.*")])
-    if filename:
+    file = files_dict["file"]
+    directory = files_dict["directory"]
+    future_filename = files_dict["future_filename"]
+    if file and directory:
+        new_file = os.path.join(directory, future_filename)
         # Carregar o arquivo Excel e selecionar a planilha ativa
         timeout_sites = 0
         accessible_sites = 0
         inaccessible_sites = -1
         verified_sites = 0
-        wb = load_workbook(filename)
+        wb = load_workbook(file)
         ws = wb.active
-
-        # Definir o nome do novo arquivo Excel que será criado
-        output_folder = os.path.expanduser("~/Documents/output_folder")
-        if not os.path.exists(output_folder):
-            os.makedirs(output_folder)
-
-        output_filename = os.path.join(output_folder, os.path.splitext(os.path.basename(filename))[0] + '_result2.xlsx')
 
         # Verificar se input_column_value está definido
         if input_column_value is not None:
@@ -352,8 +376,8 @@ def process_file():
                             verified_sites = accessible_sites + inaccessible_sites + timeout_sites
 
                             # Salvar o arquivo com os resultados
-                            wb.save(output_filename)
-                            status_label.config(text=f"Results saved in '{output_filename}'.")
+                            wb.save(new_file)
+                            status_label.config(text=f"Results saved in '{new_file}'.")
 
                             # Escrever o texto definido na célula E1
                             ws[f'{output_column_value}1'].value = cell_e1_text
@@ -374,13 +398,15 @@ def process_file():
                             # Definir a largura da coluna E
                             largura_coluna_B = ws.column_dimensions[column_letter].width
                             ws.column_dimensions[output_column_letter].width = largura_coluna_B
-                            wb.save(output_filename)
+                            wb.save(new_file)
                         else:
                             status_label.config(text=f"No sites found in column {column_letter}.")
                 else:
                     status_label.config(text="Invalid column value. Please enter a letter from A to Z.")
         else:
             status_label.config(text="No column value entered. Please enter a column value first.")
+    else:
+        status_label.config(text="Select a archive")
 
 # Criar a root principal
 
@@ -404,8 +430,14 @@ root.title("Site Verifier")
 return_default_value = tk.BooleanVar()
 
 # Criar um botão para abrir o arquivo Excel
-open_button = tk.Button(root, text="Open Excel File", command=process_file)
-open_button.pack(pady=10)
+process_button = tk.Button(root, text="Process", command=process_file)
+process_button.pack(pady=10)
+
+open_input_button = tk.Button(root, text="Select Input", command=file_selector)
+open_input_button.pack(pady=10)
+
+open_output_button = tk.Button(root, text="Select Output", command=directory_selector)
+open_output_button.pack(pady=10)
 
 default_value = tk.Checkbutton(root, text="Retornar ao padrão", variable=return_default_value, command=default_return)
 default_value.pack(anchor=tk.W)
@@ -422,32 +454,51 @@ checkbox7.pack(anchor=tk.W)
 checkbox8.pack(anchor=tk.W)
 checkbox9.pack(anchor=tk.W)
 
-# Criando o botão inicial
+
+
+font_color_acessible = tk.Button(root, text="☰", fg="black", width=5, height=2, command=toggle_menu_color)
+font_color_acessible.pack(side=tk.RIGHT, padx=10, pady=10)
+
+font_color_acessible.configure(bg="black", fg="white")
+
+color_menu_acessible = tk.Frame(root)
+cores = ["#FF0000", "#00FF00", "#0000FF", "#000000"]
+
+acessible_color_line = tk.Frame(color_menu_acessible)
+
+for i in range(4):
+    button_color = tk.Button(acessible_color_line, bg=cores[i], width=5, height=2, command=lambda c=cores[i]: mudar_cor(c))
+    button_color.pack(side=tk.LEFT, padx=5, pady=5)
+
+acessible_color_line.pack()
+
+color_menu_acessible.pack_forget()
+
+
+
 border_alt_color = tk.Button(root, text="☰", fg="black", width=5, height=2, command=toggle_menu)
 border_alt_color.pack(padx=10, pady=10)
 
-border_alt_color.configure(bg="black")
-border_alt_color.configure(fg="white")
+border_alt_color.configure(bg="black", fg="white")
 
-# Criando o frame para o menu de cores
-menu_cores = tk.Frame(root)
+color_menu_border = tk.Frame(root)
 cores = ["#FF0000", "#00FF00", "#0000FF", "#FFFF00", "#FFA500", "#800080", "#000000", "#FFFFFF"]
 
-frame_linha1 = tk.Frame(menu_cores)
-frame_linha2 = tk.Frame(menu_cores)
+border_color_line1 = tk.Frame(color_menu_border)
+border_color_line2 = tk.Frame(color_menu_border)
 
 for i in range(4):
-    button_color = tk.Button(frame_linha1, bg=cores[i], width=5, height=2, command=lambda c=cores[i]: mudar_cor(c))
+    button_color = tk.Button(border_color_line1, bg=cores[i], width=5, height=2, command=lambda c=cores[i]: mudar_cor(c))
     button_color.pack(side=tk.LEFT, padx=5, pady=5)
 
 for i in range(4, 8):
-    button_color = tk.Button(frame_linha2, bg=cores[i], width=5, height=2, command=lambda c=cores[i]: mudar_cor(c))
+    button_color = tk.Button(border_color_line2, bg=cores[i], width=5, height=2, command=lambda c=cores[i]: mudar_cor(c))
     button_color.pack(side=tk.LEFT, padx=5, pady=5)
 
-frame_linha1.pack()
-frame_linha2.pack()
+border_color_line1.pack()
+border_color_line2.pack()
 
-menu_cores.pack_forget()
+color_menu_border.pack_forget()
 
 root.bind("<Button-1>", root_click)
 
@@ -477,7 +528,6 @@ status_label = tk.Label(root, text="")
 status_label.pack()
 
 create_buttons(button_list_canvas)
-
 
 button_list_canvas.bind("<Enter>", manage_scroll_events)
 button_list_canvas.bind("<Leave>", manage_scroll_events)
