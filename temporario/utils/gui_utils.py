@@ -1,5 +1,35 @@
 import tkinter as tk
 
+# ----------------------------------------------------------------------------------
+
+def create_left_top_frame(father):
+    right_top_frame = tk.Frame(father, bg="orange", width=400)
+    right_top_frame.pack(side=tk.LEFT, fill=tk.BOTH)
+
+def create_center_top_frame(father):
+    right_top_frame = tk.Frame(father, bg="green", width=400)
+    right_top_frame.pack(side=tk.CENTER, fill=tk.BOTH)
+
+def create_right_top_frame(father):
+    right_top_frame = tk.Frame(father, bg="purple", width=400)
+    right_top_frame.pack(side=tk.RIGHT, fill=tk.BOTH)
+
+# ----------------------------------------------------------------------------------
+
+def create_left_bottom_frame(father):
+    right_top_frame = tk.Frame(father, bg="brown", width=400)
+    right_top_frame.pack(side=tk.LEFT, fill=tk.BOTH)
+
+def create_center_bottom_frame(father):
+    right_top_frame = tk.Frame(father, bg="magenta", width=400)
+    right_top_frame.pack(side=tk.BOTTOM, fill=tk.BOTH)
+
+def create_right_bottom_frame(father):
+    right_top_frame = tk.Frame(father, bg="turquoise", width=400)
+    right_top_frame.pack(side=tk.RIGHT, fill=tk.BOTH)
+
+# ----------------------------------------------------------------------------------
+
 def create_window(largura, altura):
     root = tk.Tk()
     root.geometry(f"{largura}x{altura}")
@@ -11,34 +41,14 @@ def create_master_frame(father):
     return master_frame
 
 def create_top_half_frame(father):
-    top_half_frame = tk.Frame(father, bg="white")
+    top_half_frame = tk.Frame(father, bg="yellow")
+    top_half_frame.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
     return top_half_frame
 
 def create_bottom_half_frame(father):
     bottom_half_frame = tk.Frame(father, bg="blue")
+    bottom_half_frame.pack(side=tk.BOTTOM, fill=tk.BOTH, expand=True)
     return bottom_half_frame
-
-def set_frame_size_top(father, frame):
-    width_father = father.winfo_width()
-    height_father = father.winfo_height() / 2
-    frame.place(x=0, y=0, width=width_father, height=height_father)
-
-def set_frame_size_bottom(father, frame):
-    width_father = father.winfo_width()
-    height_father = father.winfo_height() / 2
-    frame.place(x=0, y=height_father, width=width_father, height=height_father)
-
-def bind_resize_handler_top(root, master_frame, frame):
-    def resize_handler(event):
-        set_frame_size_top(master_frame, frame)
-
-    root.bind("<Configure>", resize_handler)
-
-def bind_resize_handler_bottom(root, master_frame, frame):
-    def resize_handler(event):
-        set_frame_size_bottom(master_frame, frame)
-
-    root.bind("<Configure>", resize_handler)
 
 def main():
     root = create_window(1200, 600)
@@ -47,11 +57,13 @@ def main():
     top_half_frame = create_top_half_frame(master_frame)
     bottom_half_frame = create_bottom_half_frame(master_frame)
 
-    set_frame_size_top(master_frame, top_half_frame)
-    bind_resize_handler_top(root, master_frame, top_half_frame)
+    top_left_frame = create_left_top_frame(top_half_frame)
+    top_center_frame = create_center_top_frame(top_half_frame)
+    top_right_frame = create_right_top_frame(top_half_frame)
 
-    set_frame_size_bottom(master_frame, bottom_half_frame)
-    bind_resize_handler_bottom(root, master_frame, bottom_half_frame)
+    bottom_left_frame = create_left_bottom_frame(bottom_half_frame)
+    bottom_center_frame = create_center_bottom_frame(bottom_half_frame)
+    bottom_right_frame = create_right_bottom_frame(bottom_half_frame)
 
     root.mainloop()
 
