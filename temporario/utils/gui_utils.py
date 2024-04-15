@@ -1,10 +1,45 @@
 import tkinter as tk
 
-# ---------------------------------------------------
+
+
+
+
+class FrameElement:
+    def __init__(self, father, height, width, anchor, relx, rely, bg):
+        self.frame = tk.Frame(father, height=height, width=width, bg=bg)
+        self.frame.place(anchor=anchor, relx=relx, rely=rely)
+
+
+
+
+
+# --------------------------------------------------------------------------------------------------------
+
+def create_files_input_frame(father):
+    input_column_frame = tk.Frame(father, width=250, height=20, bg="lightcoral")
+    input_column_frame.place(anchor="center", relx=0.5, rely=0.35)
+
+def create_files_input_frame2(father):
+    input_column_frame = tk.Frame(father, width=250, height=20, bg="lightcoral")
+    input_column_frame.place(anchor="center", relx=0.5, rely=0.65)
 
 def create_input_column_frame(father):
-    input_column_frame = tk.Frame(father, width=120, height=20, bg="lightcoral")
-    input_column_frame.place(anchor="n", relx=0.5, rely=0.5)
+    input_column_frame = tk.Frame(father, width=80, height=20, bg="lightcoral")
+    input_column_frame.place(anchor="center", relx=0.5, rely=0.35)
+
+def create_input_column_frame2(father):
+    input_column_frame = tk.Frame(father, width=80, height=20, bg="lightcoral")
+    input_column_frame.place(anchor="center", relx=0.5, rely=0.75)
+
+def create_input_title_frame(father):
+    input_title_cell_frame = tk.Frame(father, width=60, height=10, bg="lightcoral")
+    input_title_cell_frame.place(anchor="center", relx=0.5, rely=0.2)
+    return input_title_cell_frame
+
+def create_input_title_frame2(father):
+    input_title_cell_frame = tk.Frame(father, width=60, height=10, bg="lightcoral")
+    input_title_cell_frame.place(anchor="center", relx=0.5, rely=0.6)
+    return input_title_cell_frame
 
 def create_input_title_cell_frame(father):
     input_title_cell_frame = tk.Frame(father, width=200, height=20, bg="lightcoral")
@@ -41,8 +76,6 @@ def create_titlefont_frame(father):
     inputfont_frame.place(anchor="center", relx=0.5, rely=0.28)
     return inputfont_frame
 
-# ---------------------------------------------------
-
 def create_select_color_frame(father, x, y):
     select_color_frame = tk.Frame(father, height=40, width=40, bg="lightcoral")
     select_color_frame.place(anchor="center", relx=x, rely=y)
@@ -68,6 +101,8 @@ def create_default_check_frame(father):
     default_check_frame.place(anchor="s", relx=0.8, rely=1)
     return default_check_frame
 
+# --------------------------------------------------------------------------------------------------------
+
 def create_top_bottom_frame(father, column, bg, width):
     father.grid_rowconfigure(0, weight=1)
     father.grid_columnconfigure((0, 1, 2), weight=1)
@@ -91,6 +126,80 @@ def create_window(largura, altura):
     root.geometry(f"{largura}x{altura}")
     root.resizable(False, False)
     return root
+
+frames = {
+    "master": {},
+
+    "upper": {},
+    "lower": {},
+
+    "up_left": {},
+    "up_center": {},
+    "up_right": {},
+
+    "low_left": {},
+    "low_center": {},
+    "low_right": {},   
+
+    "program_title": {}, 
+    "program_status": {},
+    "program_process": {},
+
+    "folder_select": {},
+    "column_select": {},
+
+    "cell_section_title": {},
+    "border_section_title": {},
+    "color_section_title": {},
+
+    "cell_section_config": {},
+    "border_section_config": {},
+    "color_section_config": {},
+
+    "color_ac_select": {},
+    "color_in_select": {},
+    "color_ti_select": {},
+    "color_bo_select": {},
+
+    "color_ac_select_title": {},
+    "color_in_select_title": {},
+    "color_ti_select_title": {},
+    "color_bo_select_title": {},
+
+    "border_le_select": {},
+    "border_ri_select": {},
+    "border_up_select": {},
+    "border_low_select": {},
+
+    "border_le_select_title": {},
+    "border_ri_select_title": {},
+    "border_up_select_title": {},
+    "border_low_select_title": {},
+
+    "column_title_def": {},
+    "fontsize_def": {},
+    "alignment_le_def": {},
+    "alignment_ce_def": {},
+    "alignment_ri_def": {},
+
+    "alignment_def_title": {},
+    "fontsize_def_title": {},
+
+    "default_mode_select": {},
+
+    "input_column_def": {},
+    "output_column_def": {},
+
+    "input_column_def_title": {},
+    "output_column_def_title": {},
+
+    "archive_select": {},
+    "path_select": {},
+
+
+
+
+}
 
 def create_master_frame(father):
     master_frame = tk.Frame(father, bg="black")
@@ -153,7 +262,6 @@ def main():
     select_title_color_frame2 = create_select_title_border_frame(config_border_frame, 0.25, 0.56)
     select_title_color_frame3 = create_select_title_border_frame(config_border_frame, 0.75, 0.06)
     select_title_color_frame4 = create_select_title_border_frame(config_border_frame, 0.75, 0.56)
-
 # ----------------------------------------------------------------------------
 
     input_title_cell_frame = create_input_title_cell_frame(config_cell_frame)
@@ -161,12 +269,29 @@ def main():
     input_alignment_left_cell_frame = create_alignment_left_cell_frame(config_cell_frame)
     input_alignment_center_cell_frame = create_alignment_center_cell_frame(config_cell_frame)
     input_alignment_right_cell_frame = create_alignment_right_cell_frame(config_cell_frame)
+    
     input_title_frame = create_title_frame(config_cell_frame)
     input_titlefont_frame = create_titlefont_frame(config_cell_frame)
 
     default_check_frame = create_default_check_frame(top_right_frame)
 
     input_column_frame = create_input_column_frame(input_frame)
+    input_column_frame2 = create_input_column_frame2(input_frame)
+    input_title_frame = create_input_title_frame(input_frame)
+    input_title_frame2 = create_input_title_frame2(input_frame)
+
+    files_input_frame = create_files_input_frame(files_frame)    
+    files_input_frame2 = create_files_input_frame2(files_frame)
+
+    frames = {}
+    frames_info = {}
+
+# ----------------------------------------------------------------------------
+
+    for frame_name, info in frames_info.items():
+        father = info.pop("father", None)  # Removendo e obtendo o valor associado à chave "father"
+        frame = FrameElement(father, **info)
+        frames[frame_name] = frame
 
 # ----------------------------------------------------------------------------
 
