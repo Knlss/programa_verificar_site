@@ -2,6 +2,10 @@ import tkinter as tk
 
 # ---------------------------------------------------
 
+def create_input_column_frame(father):
+    input_column_frame = tk.Frame(father, width=120, height=20, bg="lightcoral")
+    input_column_frame.place(anchor="n", relx=0.5, rely=0.5)
+
 def create_input_title_cell_frame(father):
     input_title_cell_frame = tk.Frame(father, width=200, height=20, bg="lightcoral")
     input_title_cell_frame.place(anchor="center", relx=0.5, rely=0.1)
@@ -160,7 +164,9 @@ def main():
     input_title_frame = create_title_frame(config_cell_frame)
     input_titlefont_frame = create_titlefont_frame(config_cell_frame)
 
-    default_check_frame = create_default_check_frame(bottom_right_frame)
+    default_check_frame = create_default_check_frame(top_right_frame)
+
+    input_column_frame = create_input_column_frame(input_frame)
 
 # ----------------------------------------------------------------------------
 
