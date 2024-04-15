@@ -128,76 +128,74 @@ def create_window(largura, altura):
     return root
 
 frames = {
-    "master": {},
 
-    "upper": {},
-    "lower": {},
+    "master": {"father":, "height":, "width":, "anchor":, "relx":, "rely":, "bg":, "type":},
 
-    "up_left": {},
-    "up_center": {},
-    "up_right": {},
+    "upper": {"father":, "height":, "width":, "anchor":, "relx":, "rely":, "bg":, "type":},
+    "lower":  {"father":, "height":, "width":, "anchor":, "relx":, "rely":, "bg":, "type":},
 
-    "low_left": {},
-    "low_center": {},
-    "low_right": {},   
+    "up_left":  {"father":, "height":, "width":, "anchor":, "relx":, "rely":, "bg":, "type":},
+    "up_center":  {"father":, "height":, "width":, "anchor":, "relx":, "rely":, "bg":, "type":},
+    "up_right":  {"father":, "height":, "width":, "anchor":, "relx":, "rely":, "bg":, "type":},
 
-    "program_title": {}, 
-    "program_status": {},
-    "program_process": {},
+    "low_left":  {"father":, "height":, "width":, "anchor":, "relx":, "rely":, "bg":, "type":},
+    "low_center":  {"father":, "height":, "width":, "anchor":, "relx":, "rely":, "bg":, "type":},
+    "low_right":  {"father":, "height":, "width":, "anchor":, "relx":, "rely":, "bg":, "type":},   
 
-    "folder_select": {},
-    "column_select": {},
+    "program_title":  {"father":, "height":, "width":, "anchor":, "relx":, "rely":, "bg":, "type":}, 
+    "program_status":  {"father":, "height":, "width":, "anchor":, "relx":, "rely":, "bg":, "type":},
+    "program_process":  {"father":, "height":, "width":, "anchor":, "relx":, "rely":, "bg":, "type":},
 
-    "cell_section_title": {},
-    "border_section_title": {},
-    "color_section_title": {},
+    "folder_select":  {"father":, "height":, "width":, "anchor":, "relx":, "rely":, "bg":, "type":},
+    "column_select":  {"father":, "height":, "width":, "anchor":, "relx":, "rely":, "bg":, "type":},
 
-    "cell_section_config": {},
-    "border_section_config": {},
-    "color_section_config": {},
+    "cell_section_title":  {"father":, "height":, "width":, "anchor":, "relx":, "rely":, "bg":, "type":},
+    "border_section_title":  {"father":, "height":, "width":, "anchor":, "relx":, "rely":, "bg":, "type":},
+    "color_section_title":  {"father":, "height":, "width":, "anchor":, "relx":, "rely":, "bg":, "type":},
 
-    "color_ac_select": {},
-    "color_in_select": {},
-    "color_ti_select": {},
-    "color_bo_select": {},
+    "cell_section_config":  {"father":, "height":, "width":, "anchor":, "relx":, "rely":, "bg":, "type":},
+    "border_section_config":  {"father":, "height":, "width":, "anchor":, "relx":, "rely":, "bg":, "type":},
+    "color_section_config":  {"father":, "height":, "width":, "anchor":, "relx":, "rely":, "bg":, "type":},
 
-    "color_ac_select_title": {},
-    "color_in_select_title": {},
-    "color_ti_select_title": {},
-    "color_bo_select_title": {},
+    "color_ac_select":  {"father":, "height":, "width":, "anchor":, "relx":, "rely":, "bg":, "type":},
+    "color_in_select":  {"father":, "height":, "width":, "anchor":, "relx":, "rely":, "bg":, "type":},
+    "color_ti_select":  {"father":, "height":, "width":, "anchor":, "relx":, "rely":, "bg":, "type":},
+    "color_bo_select":  {"father":, "height":, "width":, "anchor":, "relx":, "rely":, "bg":, "type":},
 
-    "border_le_select": {},
-    "border_ri_select": {},
-    "border_up_select": {},
-    "border_low_select": {},
+    "color_ac_select_title":  {"father":, "height":, "width":, "anchor":, "relx":, "rely":, "bg":, "type":},
+    "color_in_select_title":  {"father":, "height":, "width":, "anchor":, "relx":, "rely":, "bg":, "type":},
+    "color_ti_select_title":  {"father":, "height":, "width":, "anchor":, "relx":, "rely":, "bg":, "type":},
+    "color_bo_select_title":  {"father":, "height":, "width":, "anchor":, "relx":, "rely":, "bg":, "type":},
 
-    "border_le_select_title": {},
-    "border_ri_select_title": {},
-    "border_up_select_title": {},
-    "border_low_select_title": {},
+    "border_le_select":  {"father":, "height":, "width":, "anchor":, "relx":, "rely":, "bg":, "type":},
+    "border_ri_select":  {"father":, "height":, "width":, "anchor":, "relx":, "rely":, "bg":, "type":},
+    "border_up_select":  {"father":, "height":, "width":, "anchor":, "relx":, "rely":, "bg":, "type":},
+    "border_low_select":  {"father":, "height":, "width":, "anchor":, "relx":, "rely":, "bg":, "type":},
 
-    "column_title_def": {},
-    "fontsize_def": {},
-    "alignment_le_def": {},
-    "alignment_ce_def": {},
-    "alignment_ri_def": {},
+    "border_le_select_title":  {"father":, "height":, "width":, "anchor":, "relx":, "rely":, "bg":, "type":},
+    "border_ri_select_title":  {"father":, "height":, "width":, "anchor":, "relx":, "rely":, "bg":, "type":},
+    "border_up_select_title":  {"father":, "height":, "width":, "anchor":, "relx":, "rely":, "bg":, "type":},
+    "border_low_select_title":  {"father":, "height":, "width":, "anchor":, "relx":, "rely":, "bg":, "type":},
 
-    "alignment_def_title": {},
-    "fontsize_def_title": {},
+    "column_title_def":  {"father":, "height":, "width":, "anchor":, "relx":, "rely":, "bg":, "type":},
+    "fontsize_def":  {"father":, "height":, "width":, "anchor":, "relx":, "rely":, "bg":, "type":},
+    "alignment_le_def":  {"father":, "height":, "width":, "anchor":, "relx":, "rely":, "bg":, "type":},
+    "alignment_ce_def":  {"father":, "height":, "width":, "anchor":, "relx":, "rely":, "bg":, "type":},
+    "alignment_ri_def":  {"father":, "height":, "width":, "anchor":, "relx":, "rely":, "bg":, "type":},
 
-    "default_mode_select": {},
+    "alignment_def_title":  {"father":, "height":, "width":, "anchor":, "relx":, "rely":, "bg":, "type":},
+    "fontsize_def_title":  {"father":, "height":, "width":, "anchor":, "relx":, "rely":, "bg":, "type":},
 
-    "input_column_def": {},
-    "output_column_def": {},
+    "default_mode_select":  {"father":, "height":, "width":, "anchor":, "relx":, "rely":, "bg":, "type":},
 
-    "input_column_def_title": {},
-    "output_column_def_title": {},
+    "input_column_def":  {"father":, "height":, "width":, "anchor":, "relx":, "rely":, "bg":, "type":},
+    "output_column_def":  {"father":, "height":, "width":, "anchor":, "relx":, "rely":, "bg":, "type":},
 
-    "archive_select": {},
-    "path_select": {},
+    "input_column_def_title":  {"father":, "height":, "width":, "anchor":, "relx":, "rely":, "bg":, "type":},
+    "output_column_def_title":  {"father":, "height":, "width":, "anchor":, "relx":, "rely":, "bg":, "type":},
 
-
-
+    "archive_select":  {"father":, "height":, "width":, "anchor":, "relx":, "rely":, "bg":, "type":},
+    "path_select":  {"father":, "height":, "width":, "anchor":, "relx":, "rely":, "bg":, "type":},
 
 }
 
