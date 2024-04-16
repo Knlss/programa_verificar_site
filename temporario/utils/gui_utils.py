@@ -129,12 +129,12 @@ def create_window(largura, altura):
 
 frames = {
 
-    "master": {"father":, "height":, "width":, "anchor":, "relx":, "rely":, "bg":, "type":},
+    "master": {"father":"root", "fill":tk.BOTH, "expand": True, "bg":"black", "type":"pack"},
 
-    "upper": {"father":, "height":, "width":, "anchor":, "relx":, "rely":, "bg":, "type":},
-    "lower":  {"father":, "height":, "width":, "anchor":, "relx":, "rely":, "bg":, "type":},
+    "upper": {"father":"master", "side":tk.TOP, "fill":tk.BOTH, "expand": True, "bg":"yellow", "type":"pack"},
+    "lower": {"father":"master", "side":tk.BOTTOM, "fill":tk.BOTH, "expand": True, "bg":"blue", "type":"pack"},
 
-    "up_left":  {"father":, "height":, "width":, "anchor":, "relx":, "rely":, "bg":, "type":},
+    "up_left":  {"father":"upper", "column":"", "bg":, "type":"grid"},
     "up_center":  {"father":, "height":, "width":, "anchor":, "relx":, "rely":, "bg":, "type":},
     "up_right":  {"father":, "height":, "width":, "anchor":, "relx":, "rely":, "bg":, "type":},
 
@@ -219,6 +219,7 @@ def main():
     top_left_frame = create_top_bottom_frame(top_half_frame, 0, "orange", 320)
     top_center_frame = create_top_bottom_frame(top_half_frame, 1, "green", 620)
     top_right_frame = create_top_bottom_frame(top_half_frame, 2, "purple", 320)
+    
     bottom_left_frame = create_top_bottom_frame(bottom_half_frame, 0, "#FFDAB9", 400)
     bottom_center_frame = create_top_bottom_frame(bottom_half_frame, 1, "#008080", 400)
     bottom_right_frame = create_top_bottom_frame(bottom_half_frame, 2, "navy", 400)
