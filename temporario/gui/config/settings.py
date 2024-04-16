@@ -1,32 +1,5 @@
 import tkinter as tk
 
-files_dict = {'file': None, 'filename': None, 'future_filename': None, 'directory': None}
-
-input_column_value = None
-output_column_value = None
-font_size_e = None
-border_color = None
-font_color_acessible = None
-font_color_inacessible = None
-font_color_timeout = None
-cell_border_left = None
-cell_border_right = None
-cell_border_top = None
-cell_border_bottom = None
-end_border_edges_top = None
-end_border_edges_bottom = None
-title_border_left = None
-title_border_right = None
-title_border_top = None
-title_border_bottom = None
-timeout_sites = None
-accessible_sites = None
-inaccessible_sites = None
-verified_sites = None
-alignment_cell = None
-cell_e1_text = None
-status_label = None
-first_cell_size = 13
 
 frames = {}
 

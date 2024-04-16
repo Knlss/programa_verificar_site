@@ -1,7 +1,7 @@
 from concurrent.futures import ThreadPoolExecutor
 import file_utils as file
 from openpyxl.utils import column_index_from_string
-import verificacao_sites.config.settings as settings
+import temporario.config.settings as settings
 from openpyxl.styles import Font, Alignment, Border
 import requests
 

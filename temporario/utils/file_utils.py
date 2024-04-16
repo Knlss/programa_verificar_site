@@ -1,6 +1,6 @@
 import os
 from tkinter import filedialog
-import verificacao_sites.config.settings as settings
+import temporario.config.settings as settings
 from openpyxl import load_workbook
 
 # --------------------------------------------SEÇÃO DE SELEÇÃO--------------------------------------------

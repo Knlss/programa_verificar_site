@@ -1,5 +1,9 @@
 import tkinter as tk
+import sys
 
+sys.path.append("temporario/gui")
+
+from config import settings
 
 class FrameElement:
     def __init__(self, father, height, width, anchor, relx, rely, bg, frame_type):
