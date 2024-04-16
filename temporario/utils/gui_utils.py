@@ -134,13 +134,13 @@ frames = {
     "upper": {"father":"master", "side":tk.TOP, "fill":tk.BOTH, "expand": True, "bg":"yellow", "type":"pack"},
     "lower": {"father":"master", "side":tk.BOTTOM, "fill":tk.BOTH, "expand": True, "bg":"blue", "type":"pack"},
 
-    "up_left":  {"father":"upper", "column":"", "bg":, "type":"grid"},
-    "up_center":  {"father":, "height":, "width":, "anchor":, "relx":, "rely":, "bg":, "type":},
-    "up_right":  {"father":, "height":, "width":, "anchor":, "relx":, "rely":, "bg":, "type":},
+    "up_left":  {"father":"upper", "width":320, "column":0, "bg":"orange", "type":"grid"},
+    "up_center":  {"father":"upper", "width":620, "column":1, "bg":"green", "type":"grid"},
+    "up_right":  {"father":"upper", "width":320, "column":2, "bg":"purple", "type":"grid"},
 
-    "low_left":  {"father":, "height":, "width":, "anchor":, "relx":, "rely":, "bg":, "type":},
-    "low_center":  {"father":, "height":, "width":, "anchor":, "relx":, "rely":, "bg":, "type":},
-    "low_right":  {"father":, "height":, "width":, "anchor":, "relx":, "rely":, "bg":, "type":},   
+    "low_left":  {"father":"lower", "width":400, "column":0, "bg":"#FFDAB9", "type":"grid"},
+    "low_center":  {"father":"lower", "width":400, "column":1, "bg":"#008080", "type":"grid"},
+    "low_right":  {"father":"lower", "width":400, "column":2, "bg":"navy", "type":"grid"},
 
     "program_title":  {"father":, "height":, "width":, "anchor":, "relx":, "rely":, "bg":, "type":}, 
     "program_status":  {"father":, "height":, "width":, "anchor":, "relx":, "rely":, "bg":, "type":},
