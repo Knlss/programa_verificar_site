@@ -1,11 +1,11 @@
-import tkinter as tk
 import sys
+import tkinter as tk
 
-sys.path.append("temporario/gui")
+sys.path.append("temporario")
 
-from config import settings
+import gui.config.settings as settings
 
-class FrameElement:
+class CreateFrame:
     def __init__(self, father, height, width, anchor, relx, rely, bg, frame_type):
         self.frame_type = frame_type
         if self.frame_type == "place":
@@ -28,16 +28,16 @@ def create_window(largura, altura):
     root = tk.Tk()
     root.geometry(f"{largura}x{altura}")
     root.resizable(False, False)
+    settings.frames["root"] = root
     return root
 
 def main():
     root = create_window(1250, 650)
-    settings.frames["root"] = root
 
     for frame_name, info in settings.frames_info.items():
         father_key = info.pop("father", None)
         father = settings.frames[father_key]
-        frame = FrameElement(father, **info)
+        frame = CreateFrame(father, **info)
         settings.frames[frame_name] = frame.frame
 
     root.mainloop()
