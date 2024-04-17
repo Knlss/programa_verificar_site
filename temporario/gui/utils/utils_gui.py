@@ -22,6 +22,10 @@ class CreateFrame:
         else:
             raise ValueError("Tipo de frame não suportado: {}".format(frame_type))
 
+class CreateElement:
+    def __init__(self, father, height, width, anchor, relx, rely, bg, element_type):
+        pass
+
 
 
 def create_window(largura, altura):
