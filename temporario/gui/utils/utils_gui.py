@@ -6,40 +6,96 @@ sys.path.append("temporario")
 import gui.config.settings as settings
 
 class CreateFrame:
-    def __init__(self, father, height, width, anchor, relx, rely, bg, frame_type):
-        self.frame_type = frame_type
-        if self.frame_type == "place":
-            self.frame = tk.Frame(father, height=height, width=width, bg=bg)
-            self.frame.place(anchor=anchor, relx=relx, rely=rely)
-        elif self.frame_type == "grid":
-            father.grid_rowconfigure(0, weight=1)
-            father.grid_columnconfigure((0, 1, 2), weight=1)
-            self.frame = tk.Frame(father, width=width, bg=bg)
-            self.frame.grid(row=height, column=anchor, sticky="nsew")
-        elif self.frame_type == "pack":
-            self.frame = tk.Frame(father, bg=bg)
-            self.frame.pack(side=height, fill=width, expand=anchor)
-        else:
-            raise ValueError("Tipo de frame não suportado: {}".format(frame_type))
-        
-# ---------------------------------------------------------------------------------------------------------
+
+    def create_place_frame(self, father, width, height, anchor, relx, rely, bg):
+        frame = tk.Frame(father, width=width, height=height, bg=bg)
+        frame.place(anchor=anchor, relx=relx, rely=rely)
+        return frame
+
+    def create_grid_frame(self, father, width, bg, row, column):
+        father.grid_rowconfigure(0, weight=1)
+        father.grid_columnconfigure((0, 1, 2), weight=1)
+        frame = tk.Frame(father, width=width, bg=bg)
+        frame.grid(row=row, column=column, sticky="nsew")
+        return frame
+
+    def create_pack_frame(self, father, bg, side, fill, expand):
+        frame = tk.Frame(father, bg=bg)
+        frame.pack(side=side, fill=fill, expand=expand)
+        return frame
+
 
 class CreateElement:
 
-    def create_button(self, father, height, width, anchor, relx, rely, bg, fg, font, text, command):
-        self.frame = tk.Button(father, height=height, width=width, text=text, font=font, bg=bg, fg=fg, command=command)
-        self.frame.place(anchor=anchor, relx=relx, rely=rely)
+    def create_button(self, father, width, height, anchor, relx, rely, bg, activebg, fg, activefg, font, text, cursor, command, relwidth=None, relheight=None):
+        if relheight or relwidth != None:
+            if relheight and relwidth != None:
+                frame = tk.Button(father, bg=bg, activebackground=activebg, fg=fg, activeforeground=activefg, font=font, text=text, cursor=cursor, command=command)
+                frame.place(anchor=anchor, relx=relx, rely=rely, relwidth=relwidth, relheight=relheight)
+                return frame
+            else:
+                if relheight != None:
+                    frame = tk.Button(father, width=width, bg=bg, activebackground=activebg, fg=fg, activeforeground=activefg, font=font, text=text, cursor=cursor, command=command)
+                    frame.place(anchor=anchor, relx=relx, rely=rely, relheight=relheight)
+                    return frame
+                elif relwidth != None:
+                    frame = tk.Button(father, height=height, bg=bg, activebackground=activebg, fg=fg, activeforeground=activefg, font=font, text=text, cursor=cursor, command=command)
+                    frame.place(anchor=anchor, relx=relx, rely=rely, relwidth=relwidth)
+                    return frame
+        else:
+            frame = tk.Button(father, width=width, height=height, bg=bg, activebackground=activebg, fg=fg, activeforeground=activefg, font=font, text=text, cursor=cursor, command=command)
+            frame.place(anchor=anchor, relx=relx, rely=rely)
+            return frame
 
-    def create_checkbutton(self, **info):
-        self.frame = tk.Button(self.father, **info)
+    def create_checkbutton(self, father, width, height, anchor, relx, rely, bg, activebg, fg, activefg, selectcolor, font, text, cursor, variable, command, relwidth=None, relheight=None):
+        if relheight or relwidth != None:
+            if relheight and relwidth != None:
+                    frame = tk.Checkbutton(father, bg=bg, activebackground=activebg, fg=fg, activeforeground=activefg, selectcolor=selectcolor, font=font, text=text, cursor=cursor, variable=variable, command=command)
+                    frame.place(anchor=anchor, relx=relx, rely=rely, relwidth=relwidth, relheight=relheight)
+                    return frame
+            else:
+                if relheight != None:
+                    frame = tk.Checkbutton(father, width=width, bg=bg, activebackground=activebg, fg=fg, activeforeground=activefg, selectcolor=selectcolor, font=font, text=text, cursor=cursor, variable=variable, command=command)
+                    frame.place(anchor=anchor, relx=relx, rely=rely, relheight=relheight)
+                    return frame
+                elif relwidth != None:
+                    frame = tk.Checkbutton(father, height=height, bg=bg, activebackground=activebg, fg=fg, activeforeground=activefg, selectcolor=selectcolor, font=font, text=text, cursor=cursor, variable=variable, command=command)
+                    frame.place(anchor=anchor, relx=relx, rely=rely, relwidth=relwidth)
+                    return frame
+        else:
+            frame = tk.Checkbutton(father, width=width, height=height, bg=bg, activebackground=activebg, fg=fg, activeforeground=activefg, selectcolor=selectcolor, font=font, text=text, cursor=cursor, variable=variable, command=command)
+            frame.place(anchor=anchor, relx=relx, rely=rely)
+            return frame
 
-    def create_input(self, **info):
-        self.frame = tk.Label(self.father, **info)
-    
-    def create_label(self, **info):
-        self.frame = tk.Label(self.father, **info)
-    
-# ---------------------------------------------------------------------------------------------------------
+    def create_input(self, father, width, anchor, relx, rely, bg, fg, font, cursor, relwidth=None):
+        if relwidth != None:
+            frame = tk.Entry(father, bg=bg, fg=fg, font=font, cursor=cursor)
+            frame.place(anchor=anchor, relx=relx, rely=rely, relwidth=relwidth)
+            return frame
+        else:
+            frame = tk.Entry(father, width=width, bg=bg, fg=fg, font=font, cursor=cursor)
+            frame.place(anchor=anchor, relx=relx, rely=rely)
+            return frame
+
+    def create_label(self, father, width, height, anchor, relx, rely, bg, fg, font, justify, cursor, relwidth=None, relheight=None):
+        if relheight or relwidth != None:
+            if relheight and relwidth != None:
+                frame = tk.Label(father, bg=bg, fg=fg, font=font, justify=justify, cursor=cursor)
+                frame.place(anchor=anchor, relx=relx, rely=rely, relwidth=relwidth, relheight=relheight)
+                return frame
+            else:
+                if relheight != None:
+                    frame = tk.Label(father, width=width, bg=bg, fg=fg, font=font, justify=justify, cursor=cursor)
+                    frame.place(anchor=anchor, relx=relx, rely=rely, relheight=relheight)
+                    return frame
+                elif relwidth != None:
+                    frame = tk.Label(father, height=height, bg=bg, fg=fg, font=font, justify=justify, cursor=cursor)
+                    frame.place(anchor=anchor, relx=relx, rely=rely, relwidth=relwidth)
+                    return frame
+        else:
+            frame = tk.Label(father, width=width, height=height, bg=bg, fg=fg, font=font, justify=justify, cursor=cursor)
+            frame.place(anchor=anchor, relx=relx, rely=rely)
+            return frame
 
 """
 
@@ -61,19 +117,43 @@ def create_window(largura, altura):
     root = tk.Tk()
     root.geometry(f"{largura}x{altura}")
     root.resizable(False, False)
-    settings.frames["root"] = root
     return root
 
 def main():
-    root = create_window(1250, 650)
+    frame_config = settings.FrameConfig()
 
-    for frame_name, info in settings.frames_info.items():
+    root = create_window(1250, 650)
+    frame_config.frames["root"] = root
+
+    for frame_name, info in frame_config.frames_pack_info.items():
+        instance = CreateFrame()
         father_key = info.pop("father", None)
-        father = settings.frames[father_key]
-        frame = CreateFrame(father, **info)
-        settings.frames[frame_name] = frame.frame
+        father = frame_config.frames[father_key]
+        frame = instance.create_pack_frame(father, **info)
+        frame_config.frames[frame_name] = frame
+
+    for frame_name, info in frame_config.frames_grid_info.items():
+        instance = CreateFrame()
+        father_key = info.pop("father", None)
+        father = frame_config.frames[father_key]
+        frame = instance.create_grid_frame(father, **info)
+        frame_config.frames[frame_name] = frame
+
+    for frame_name, info in frame_config.frames_place_info.items():
+        instance = CreateFrame()
+        father_key = info.pop("father", None)
+        father = frame_config.frames[father_key]
+        frame = instance.create_place_frame(father, **info)
+        frame_config.frames[frame_name] = frame
 
     root.mainloop()
+
+
+'''for element_name, info in settings.elements_place_info.items():
+father_key = info.pop("father", None)
+father = settings.elements[father_key]
+frame = CreateElement(father, **info)
+settings.elements[element_name] = frame.frame'''
 
 if __name__ == "__main__":
     main()

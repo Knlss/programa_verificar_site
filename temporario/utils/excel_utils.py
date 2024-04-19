@@ -15,16 +15,18 @@ def check_access(site):
         else:
             return "Inaccessible"
 
-def verif_columns_entry(input, output):
+def verif_columns_entry(input, output, sites):
     if input is not None:
         if output is not None:
             if len(input) == 1 and 'A' <= input.upper() <= 'Z':
                 if len(output) == 1 and 'A' <= output.upper() <= 'Z' and output.upper() != input.upper():
-                    return True
-                return "MENSAGEM DE ERRO"
-            return "MENSAGEM DE ERRO"
-        return "MENSAGEM DE ERRO"
-    return "MENSAGEM DE ERRO"
+                    if sites:
+                        return True
+                    else: return "MENSAGEM DE ERRO"
+                else: return "MENSAGEM DE ERRO"
+            else: return "MENSAGEM DE ERRO"
+        else: return "MENSAGEM DE ERRO"
+    else: return "MENSAGEM DE ERRO"
 
 def calculate_verified_sites(acess, inacess, timeout):
     verified = acess, inacess, timeout
