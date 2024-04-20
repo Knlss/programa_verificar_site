@@ -121,6 +121,7 @@ def create_window(largura, altura):
 
 def main():
     frame_config = settings.FrameConfig()
+    element_config = settings.ElementConfig()
 
     root = create_window(1250, 650)
     frame_config.frames["root"] = root
@@ -146,14 +147,14 @@ def main():
         frame = instance.create_place_frame(father, **info)
         frame_config.frames[frame_name] = frame
 
+    for element_name, info in element_config.elements_button_info.items():
+        instance = CreateElement()
+        father_key = info.pop("father", None)
+        father = frame_config.frames[father_key]
+        frame = instance.create_button(father, **info)
+        element_config.elements[element_name] = frame
+
     root.mainloop()
-
-
-'''for element_name, info in settings.elements_place_info.items():
-father_key = info.pop("father", None)
-father = settings.elements[father_key]
-frame = CreateElement(father, **info)
-settings.elements[element_name] = frame.frame'''
 
 if __name__ == "__main__":
     main()
