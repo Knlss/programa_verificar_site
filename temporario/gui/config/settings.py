@@ -85,19 +85,19 @@ class ElementConfig:
     def __init__(self):
         self.elements = {}
         self.elements_button_info = {
-            "process_button": {"father":"program_process", "width":0, "height":0, "anchor":"center", "relx":0.5, "rely":0.5, "bg":"white", "activebg":"lightgray", "fg":"black", "activefg":"1A1110", "font":"helvetica", "text":"PROCESSAR", "cursor":"hand4", "command":lambda: print(0), "relwidth":1, "relheight":1},
+            "process_button": {"father":"program_process", "width":0, "height":0, "anchor":"center", "relx":0.5, "rely":0.5, "bg":"white", "activebg":"lightgray", "fg":"black", "activefg":"#1A1110", "font":"helvetica", "text":"PROCESSAR", "cursor":"hand2", "command":lambda: print(0), "relwidth":1, "relheight":1},
 
-            "archive_button": {"father":"archive_select", "width":50, "height":0, "anchor":"left", "relx":1, "rely":0.5, "bg":"lightgray", "activebg":"gray", "fg":"gray", "activefg":"A9A9A9", "font":"helvetica", "text":"▼", "cursor":"hand4", "command":lambda: print(0), "relwidth":None, "relheight":1},
+            "archive_button": {"father":"archive_select", "width":50, "height":0, "anchor":"w", "relx":1, "rely":0.5, "bg":"lightgray", "activebg":"gray", "fg":"gray", "activefg":"#A9A9A9", "font":"helvetica", "text":"▼", "cursor":"hand2", "command":lambda: print(0), "relwidth":None, "relheight":1},
             
-            "folder_button": {"father":"path_select", "width":50, "height":0, "anchor":"left", "relx":1, "rely":0.5, "bg":"lightgray", "activebg":"gray", "fg":"gray", "activefg":"A9A9A9", "font":"helvetica", "text":"▼", "cursor":"hand4", "command":lambda: print(0), "relwidth":None, "relheight":1},
+            "folder_button": {"father":"path_select", "width":50, "height":0, "anchor":"w", "relx":1, "rely":0.5, "bg":"lightgray", "activebg":"gray", "fg":"gray", "activefg":"#A9A9A9", "font":"helvetica", "text":"▼", "cursor":"hand2", "command":lambda: print(0), "relwidth":None, "relheight":1},
             
-            "size_button": {"father":"fontsize_def", "width":20, "height":0, "anchor":"left", "relx":1, "rely":0.5, "bg":"lightgray", "activebg":"gray", "fg":"gray", "activefg":"A9A9A9", "font":"helvetica", "text":"▼", "cursor":"hand4", "command":lambda: print(0), "relwidth":None, "relheight":1},
+            "size_button": {"father":"fontsize_def", "width":20, "height":0, "anchor":"w", "relx":1, "rely":0.5, "bg":"lightgray", "activebg":"gray", "fg":"gray", "activefg":"#A9A9A9", "font":"helvetica", "text":"▼", "cursor":"hand2", "command":lambda: print(0), "relwidth":None, "relheight":1},
             
-            "align_left_button": {"father":"alingment_le_def", "width":0, "height":0, "anchor":"center", "relx":0.5, "rely":0.5, "bg":"white", "activebg":"gray", "fg":"black", "activefg":"1A1110", "font":"helvetica", "text":"", "cursor":"hand4", "command":lambda: print(0), "relwidth":1, "relheight":1},
+            "align_left_button": {"father":"alignment_le_def", "width":0, "height":0, "anchor":"center", "relx":0.5, "rely":0.5, "bg":"white", "activebg":"gray", "fg":"black", "activefg":"#1A1110", "font":"helvetica", "text":"", "cursor":"hand2", "command":lambda: print(0), "relwidth":1, "relheight":1},
             
-            "align_center_button": {"father":"alingment_ce_def", "width":0, "height":0, "anchor":"center", "relx":0.5, "rely":0.5, "bg":"white", "activebg":"gray", "fg":"black", "activefg":"1A1110", "font":"helvetica", "text":"", "cursor":"hand4", "command":lambda: print(0), "relwidth":1, "relheight":1},
+            "align_center_button": {"father":"alignment_le_def", "width":0, "height":0, "anchor":"center", "relx":0.5, "rely":0.5, "bg":"white", "activebg":"gray", "fg":"black", "activefg":"#1A1110", "font":"helvetica", "text":"", "cursor":"hand2", "command":lambda: print(0), "relwidth":1, "relheight":1},
             
-            "align_right_button": {"father":"alignment_ri_def", "width":0, "height":0, "anchor":"center", "relx":0.5, "rely":0.5, "bg":"white", "activebg":"gray", "fg":"black", "activefg":"1A1110", "font":"helvetica", "text":"", "cursor":"hand4", "command":lambda: print(0), "relwidth":1, "relheight":1},
+            "align_right_button": {"father":"alignment_le_def", "width":0, "height":0, "anchor":"center", "relx":0.5, "rely":0.5, "bg":"white", "activebg":"gray", "fg":"black", "activefg":"#1A1110", "font":"helvetica", "text":"", "cursor":"hand2", "command":lambda: print(0), "relwidth":1, "relheight":1},
             
             "border_top_button": {"father":"border_up_select", "width":0, "height":0, "anchor":"", "relx":0, "rely":0, "bg":"", "activebg":"", "fg":"", "activefg":"", "font":"", "text":"", "cursor":"", "command":lambda: print(0), "relwidth":None, "relheight":None},
             
