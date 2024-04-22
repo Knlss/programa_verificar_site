@@ -1,5 +1,6 @@
 import sys
 import tkinter as tk
+from PIL import Image, ImageTk
 
 sys.path.append("temporario")
 
@@ -28,6 +29,7 @@ class CreateFrame:
 class CreateElement:
 
     def create_button(self, father, width, height, anchor, relx, rely, bg, activebg, fg, activefg, font, text, cursor, command, relwidth=None, relheight=None):
+
         if relheight or relwidth != None:
             if relheight and relwidth != None:
                 frame = tk.Button(father, bg=bg, activebackground=activebg, fg=fg, activeforeground=activefg, font=font, text=text, cursor=cursor, command=command)
@@ -67,13 +69,13 @@ class CreateElement:
             frame.place(anchor=anchor, relx=relx, rely=rely)
             return frame
 
-    def create_input(self, father, width, anchor, relx, rely, bg, fg, font, cursor, relwidth=None):
+    def create_input(self, father, width, anchor, relx, rely, bg, fg, font, cursor, relwidth=None, textvariable=None):
         if relwidth != None:
-            frame = tk.Entry(father, bg=bg, fg=fg, font=font, cursor=cursor)
+            frame = tk.Entry(father, bg=bg, fg=fg, font=font, cursor=cursor, textvariable=textvariable)
             frame.place(anchor=anchor, relx=relx, rely=rely, relwidth=relwidth)
             return frame
         else:
-            frame = tk.Entry(father, width=width, bg=bg, fg=fg, font=font, cursor=cursor)
+            frame = tk.Entry(father, width=width, bg=bg, fg=fg, font=font, cursor=cursor, textvariable=textvariable)
             frame.place(anchor=anchor, relx=relx, rely=rely)
             return frame
 
@@ -119,39 +121,47 @@ def create_window(largura, altura):
     root.resizable(False, False)
     return root
 
+frame_config = settings.FrameConfig()
+element_config = settings.ElementConfig()
+
 def main():
-    frame_config = settings.FrameConfig()
-    element_config = settings.ElementConfig()
 
     root = create_window(1250, 650)
     frame_config.frames["root"] = root
 
     for frame_name, info in frame_config.frames_pack_info.items():
         instance = CreateFrame()
-        father_key = info.pop("father", None)
+        father_key = info.pop("father")
         father = frame_config.frames[father_key]
         frame = instance.create_pack_frame(father, **info)
         frame_config.frames[frame_name] = frame
 
     for frame_name, info in frame_config.frames_grid_info.items():
         instance = CreateFrame()
-        father_key = info.pop("father", None)
+        father_key = info.pop("father")
         father = frame_config.frames[father_key]
         frame = instance.create_grid_frame(father, **info)
         frame_config.frames[frame_name] = frame
 
     for frame_name, info in frame_config.frames_place_info.items():
         instance = CreateFrame()
-        father_key = info.pop("father", None)
+        father_key = info.pop("father")
         father = frame_config.frames[father_key]
         frame = instance.create_place_frame(father, **info)
         frame_config.frames[frame_name] = frame
 
     for element_name, info in element_config.elements_button_info.items():
         instance = CreateElement()
-        father_key = info.pop("father", None)
+        father_key = info.pop("father")
         father = frame_config.frames[father_key]
         frame = instance.create_button(father, **info)
+        element_config.elements[element_name] = frame
+
+    for element_name, info in element_config.elements_entry_info.items():
+        instance = CreateElement()
+        father_key = info.pop("father")
+        father = frame_config.frames[father_key]
+        frame = instance.create_input(father, **info)
         element_config.elements[element_name] = frame
 
     root.mainloop()

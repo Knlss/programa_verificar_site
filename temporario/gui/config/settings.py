@@ -1,4 +1,5 @@
 import tkinter as tk
+import sett2 as gui
 
 class FrameConfig:
     def __init__(self):
@@ -80,58 +81,64 @@ class FrameConfig:
             "path_select_title": {"father":"folder_select", "width":60, "height":10, "anchor":"center", "relx":0.5, "rely":0.55, "bg":"lightcoral"}
         }
 
-
 class ElementConfig:
     def __init__(self):
+        self.config_variables = {
+            "inout_limit_lenght":1,
+            "inout_stringvar": tk.StringVar(),
+            "inout_entry": self.config_variables["inout_stringvar"].trace_add("write", gui.limit_length)
+        }
+
         self.elements = {}
+
         self.elements_button_info = {
-            "process_button": {"father":"program_process", "width":0, "height":0, "anchor":"center", "relx":0.5, "rely":0.5, "bg":"white", "activebg":"lightgray", "fg":"black", "activefg":"#1A1110", "font":"helvetica", "text":"PROCESSAR", "cursor":"hand2", "command":lambda: print(0), "relwidth":1, "relheight":1},
+            "process_button": {"father":"program_process", "width":0, "height":0, "anchor":"center", "relx":0.5, "rely":0.5, "bg":"#F9F0F0", "activebg":"lightgray", "fg":"black", "activefg":"#1A1110", "font":"helvetica 12 bold", "text":"PROCESSAR", "cursor":"hand2", "command":lambda: print(0), "relwidth":1, "relheight":1},
 
-            "archive_button": {"father":"archive_select", "width":50, "height":0, "anchor":"w", "relx":1, "rely":0.5, "bg":"lightgray", "activebg":"gray", "fg":"gray", "activefg":"#A9A9A9", "font":"helvetica", "text":"▼", "cursor":"hand2", "command":lambda: print(0), "relwidth":None, "relheight":1},
+            "archive_button": {"father":"archive_select", "width":0, "height":0, "anchor":"center", "relx":0.949, "rely":0.5, "bg":"lightgray", "activebg":"gray", "fg":"black", "activefg":"#1A1110", "font":"helvetica", "text":"▼", "cursor":"hand2", "command":lambda: print(0), "relwidth":0.1, "relheight":1},
             
-            "folder_button": {"father":"path_select", "width":50, "height":0, "anchor":"w", "relx":1, "rely":0.5, "bg":"lightgray", "activebg":"gray", "fg":"gray", "activefg":"#A9A9A9", "font":"helvetica", "text":"▼", "cursor":"hand2", "command":lambda: print(0), "relwidth":None, "relheight":1},
+            "folder_button": {"father":"path_select", "width":0, "height":0, "anchor":"center", "relx":0.949, "rely":0.5, "bg":"lightgray", "activebg":"gray", "fg":"black", "activefg":"#1A1110", "font":"helvetica", "text":"▼", "cursor":"hand2", "command":lambda: print(0), "relwidth":0.1, "relheight":1},
             
-            "size_button": {"father":"fontsize_def", "width":20, "height":0, "anchor":"w", "relx":1, "rely":0.5, "bg":"lightgray", "activebg":"gray", "fg":"gray", "activefg":"#A9A9A9", "font":"helvetica", "text":"▼", "cursor":"hand2", "command":lambda: print(0), "relwidth":None, "relheight":1},
+            "size_button": {"father":"fontsize_def", "width":0, "height":0, "anchor":"center", "relx":0.874, "rely":0.5, "bg":"lightgray", "activebg":"gray", "fg":"black", "activefg":"#1A1110", "font":"helvetica", "text":"▼", "cursor":"hand2", "command":lambda: print(0), "relwidth":0.25, "relheight":1},
             
-            "align_left_button": {"father":"alignment_le_def", "width":0, "height":0, "anchor":"center", "relx":0.5, "rely":0.5, "bg":"white", "activebg":"gray", "fg":"black", "activefg":"#1A1110", "font":"helvetica", "text":"", "cursor":"hand2", "command":lambda: print(0), "relwidth":1, "relheight":1},
+            "align_left_button": {"father":"alignment_le_def", "width":0, "height":0, "anchor":"center", "relx":0.5, "rely":0.5, "bg":"#F9F0F0", "activebg":"lightgray", "fg":"black", "activefg":"#1A1110", "font":"helvetica 15 bold", "text":"←", "cursor":"hand2", "command":lambda: print(0), "relwidth":0.9, "relheight":0.9},
             
-            "align_center_button": {"father":"alignment_le_def", "width":0, "height":0, "anchor":"center", "relx":0.5, "rely":0.5, "bg":"white", "activebg":"gray", "fg":"black", "activefg":"#1A1110", "font":"helvetica", "text":"", "cursor":"hand2", "command":lambda: print(0), "relwidth":1, "relheight":1},
+            "align_center_button": {"father":"alignment_ce_def", "width":0, "height":0, "anchor":"center", "relx":0.5, "rely":0.5, "bg":"#F9F0F0", "activebg":"lightgray", "fg":"black", "activefg":"#1A1110", "font":"helvetica 15 bold", "text":"•", "cursor":"hand2", "command":lambda: print(0), "relwidth":0.9, "relheight":0.9},
             
-            "align_right_button": {"father":"alignment_le_def", "width":0, "height":0, "anchor":"center", "relx":0.5, "rely":0.5, "bg":"white", "activebg":"gray", "fg":"black", "activefg":"#1A1110", "font":"helvetica", "text":"", "cursor":"hand2", "command":lambda: print(0), "relwidth":1, "relheight":1},
+            "align_right_button": {"father":"alignment_ri_def", "width":0, "height":0, "anchor":"center", "relx":0.5, "rely":0.5, "bg":"#F9F0F0", "activebg":"lightgray", "fg":"black", "activefg":"#1A1110", "font":"helvetica 15 bold", "text":"→", "cursor":"hand2", "command":lambda: print(0), "relwidth":0.9, "relheight":0.9},
             
-            "border_top_button": {"father":"border_up_select", "width":0, "height":0, "anchor":"", "relx":0, "rely":0, "bg":"", "activebg":"", "fg":"", "activefg":"", "font":"", "text":"", "cursor":"", "command":lambda: print(0), "relwidth":None, "relheight":None},
+            "border_top_button": {"father":"border_up_select", "width":0, "height":0, "anchor":"center", "relx":0.5, "rely":0.5, "bg":"#F9F0F0", "activebg":"lightgray", "fg":"black", "activefg":"#1A1110", "font":"helvetica 12", "text":"☰", "cursor":"hand2", "command":lambda: print(0), "relwidth":0.8, "relheight":0.8},
             
-            "border_bottom_button": {"father":"border_low_select", "width":0, "height":0, "anchor":"", "relx":0, "rely":0, "bg":"", "activebg":"", "fg":"", "activefg":"", "font":"", "text":"", "cursor":"", "command":lambda: print(0), "relwidth":None, "relheight":None},
+            "border_bottom_button": {"father":"border_low_select", "width":0, "height":0, "anchor":"center", "relx":0.5, "rely":0.5, "bg":"#F9F0F0", "activebg":"lightgray", "fg":"black", "activefg":"#1A1110", "font":"helvetica 12", "text":"☰", "cursor":"hand2", "command":lambda: print(0), "relwidth":0.8, "relheight":0.8},
             
-            "border_left_button": {"father":"border_le_select", "width":0, "height":0, "anchor":"", "relx":0, "rely":0, "bg":"", "activebg":"", "fg":"", "activefg":"", "font":"", "text":"", "cursor":"", "command":lambda: print(0), "relwidth":None, "relheight":None},
+            "border_left_button": {"father":"border_le_select", "width":0, "height":0, "anchor":"center", "relx":0.5, "rely":0.5, "bg":"#F9F0F0", "activebg":"lightgray", "fg":"black", "activefg":"#1A1110", "font":"helvetica 12", "text":"☰", "cursor":"hand2", "command":lambda: print(0), "relwidth":0.8, "relheight":0.8},
             
-            "border_right_button": {"father":"border_ri_select", "width":0, "height":0, "anchor":"", "relx":0, "rely":0, "bg":"", "activebg":"", "fg":"", "activefg":"", "font":"", "text":"", "cursor":"", "command":lambda: print(0), "relwidth":None, "relheight":None},
+            "border_right_button": {"father":"border_ri_select", "width":0, "height":0, "anchor":"center", "relx":0.5, "rely":0.5, "bg":"#F9F0F0", "activebg":"lightgray", "fg":"black", "activefg":"#1A1110", "font":"helvetica 12", "text":"☰", "cursor":"hand2", "command":lambda: print(0), "relwidth":0.8, "relheight":0.8},
             
-            "color_ac_button": {"father":"color_ac_select", "width":0, "height":0, "anchor":"", "relx":0, "rely":0, "bg":"", "activebg":"", "fg":"", "activefg":"", "font":"", "text":"", "cursor":"", "command":lambda: print(0), "relwidth":None, "relheight":None},
+            "color_ac_button": {"father":"color_ac_select", "width":0, "height":0, "anchor":"center", "relx":0.5, "rely":0.5, "bg":"#F9F0F0", "activebg":"lightgray", "fg":"black", "activefg":"#1A1110", "font":"helvetica 10", "text":"☰", "cursor":"hand2", "command":lambda: print(0), "relwidth":0.9, "relheight":0.9},
             
-            "color_ti_button": {"father":"color_ti_select", "width":0, "height":0, "anchor":"", "relx":0, "rely":0, "bg":"", "activebg":"", "fg":"", "activefg":"", "font":"", "text":"", "cursor":"", "command":lambda: print(0), "relwidth":None, "relheight":None},
+            "color_ti_button": {"father":"color_ti_select", "width":0, "height":0, "anchor":"center", "relx":0.5, "rely":0.5, "bg":"#F9F0F0", "activebg":"lightgray", "fg":"black", "activefg":"#1A1110", "font":"helvetica 10", "text":"☰", "cursor":"hand2", "command":lambda: print(0), "relwidth":0.9, "relheight":0.9},
 
-            "color_in_button": {"father":"color_in_select", "width":0, "height":0, "anchor":"", "relx":0, "rely":0, "bg":"", "activebg":"", "fg":"", "activefg":"", "font":"", "text":"", "cursor":"", "command":lambda: print(0), "relwidth":None, "relheight":None},
+            "color_in_button": {"father":"color_in_select", "width":0, "height":0, "anchor":"center", "relx":0.5, "rely":0.5, "bg":"#F9F0F0", "activebg":"lightgray", "fg":"black", "activefg":"#1A1110", "font":"helvetica 10", "text":"☰", "cursor":"hand2", "command":lambda: print(0), "relwidth":0.9, "relheight":0.9},
             
-            "color_bo_button": {"father":"color_bo_select", "width":0, "height":0, "anchor":"", "relx":0, "rely":0, "bg":"", "activebg":"", "fg":"", "activefg":"", "font":"", "text":"", "cursor":"", "command":lambda: print(0), "relwidth":None, "relheight":None}
+            "color_bo_button": {"father":"color_bo_select", "width":0, "height":0, "anchor":"center", "relx":0.5, "rely":0.5, "bg":"#F9F0F0", "activebg":"lightgray", "fg":"black", "activefg":"#1A1110", "font":"helvetica 10", "text":"☰", "cursor":"hand2", "command":lambda: print(0), "relwidth":0.9, "relheight":0.9}
         }
 
         self.elements_checkbutton_info = {
-            "default_mode_checkbutton": {"father":"", "width":0, "height":0, "anchor":"", "relx":0, "rely":0, "bg":"", "activebg":"", "fg":"", "activefg":"", "selectcolor":"", "font":"", "text":"", "cursor":"", "variable":"", "command":"", "relwidth":0, "relheight":0},
+            "default_mode_checkbutton": {"father":"", "width":0, "height":0, "anchor":"", "relx":0, "rely":0, "bg":"", "activebg":"", "fg":"", "activefg":"", "selectcolor":"", "font":"", "text":"", "cursor":"", "variable":"", "command":"", "relwidth":0, "relheight":0}
         }
         
         self.elements_entry_info = {
-            "archive_show_entry": {"father":"", "width":0, "anchor":"", "relx":0, "rely":0, "bg":"", "fg":"", "font":"", "cursor":"", "relwidth":0},
+            "archive_show_entry": {"father":"archive_select", "width":0, "anchor":"center", "relx":0.448, "rely":0.5, "bg":"lightgray", "fg":"gray", "font":"helvetica 10", "cursor":"hand2", "relwidth":0.9, "textvariable":None},
             
-            "folder_show_entry": {"father":"", "width":0, "anchor":"", "relx":0, "rely":0, "bg":"", "fg":"", "font":"", "cursor":"", "relwidth":0},
+            "folder_show_entry": {"father":"path_select", "width":0, "anchor":"center", "relx":0.448, "rely":0.5, "bg":"lightgray", "fg":"gray", "font":"helvetica 10", "cursor":"hand2", "relwidth":0.9, "textvariable":None},
             
-            "input_column_entry": {"father":"", "width":0, "anchor":"", "relx":0, "rely":0, "bg":"", "fg":"", "font":"", "cursor":"", "relwidth":0},
+            "input_column_entry": {"father":"input_column_def", "width":0, "anchor":"center", "relx":0.5, "rely":0.5, "bg":"lightgray", "fg":"gray", "font":"helvetica 10", "cursor":"hand2", "relwidth":1, "textvariable":self.config_variables["inout_entry"]},
             
-            "output_column_entry": {"father":"", "width":0, "anchor":"", "relx":0, "rely":0, "bg":"", "fg":"", "font":"", "cursor":"", "relwidth":0},
+            "output_column_entry": {"father":"output_column_def", "width":0, "anchor":"center", "relx":0.5, "rely":0.5, "bg":"lightgray", "fg":"gray", "font":"helvetica 10", "cursor":"hand2", "relwidth":1, "textvariable":self.config_variables},
             
-            "input_name_entry": {"father":"", "width":0, "anchor":"", "relx":0, "rely":0, "bg":"", "fg":"", "font":"", "cursor":"", "relwidth":0},
+            "input_name_entry": {"father":"column_title_def", "width":0, "anchor":"center", "relx":0.5, "rely":0.5, "bg":"lightgray", "fg":"gray", "font":"helvetica 10", "cursor":"hand2", "relwidth":1, "textvariable":None},
             
-            "size_show_entry": {"father":"", "width":0, "anchor":"", "relx":0, "rely":0, "bg":"", "fg":"", "font":"", "cursor":"", "relwidth":0},
+            "size_show_entry": {"father":"fontsize_def", "width":0, "anchor":"center", "relx":0.373, "rely":0.5, "bg":"lightgray", "fg":"gray", "font":"helvetica 10", "cursor":"hand2", "relwidth":0.75, "textvariable":None},
         }
 
         self.elements_label_info = {
