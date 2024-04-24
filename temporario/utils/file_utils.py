@@ -39,7 +39,7 @@ def load_file(directory, future_filename):
 
 
 # -------------------------------------------SEÇÃO DE SALVAMENTO------------------------------------------
-def save_file(file, newfile):
-    file.save(newfile)
-    return settings.status_label.config(text=f"Results saved in '{newfile}'.")
+def save_file(file, new_file):
+    file.save(new_file)
+    return settings.status_label.config(text=f"Results saved in '{new_file}'.")
 # -------------------------------------------SEÇÃO DE SALVAMENTO------------------------------------------

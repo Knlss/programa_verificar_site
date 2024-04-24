@@ -75,7 +75,7 @@ class CreateElement:
     def create_input(self, father, width, anchor, relx, rely, bg, fg, font, cursor, textvariable, limit_lenght, state, relwidth=None):
         locals()[textvariable] = tk.StringVar()
         stringvar = locals()[textvariable]
-        stringvar.trace_add("write", lambda *args: (self.el_cmd.limit_lenght(stringvar, limit_lenght), stringvar))
+        stringvar.trace_add("write", lambda *args: (self.el_cmd.limit_lenght(stringvar, textvariable, limit_lenght), stringvar))
         if relwidth != None:
             frame = tk.Entry(father, bg=bg, fg=fg, font=font, cursor=cursor, textvariable=stringvar, state=state)
             frame.place(anchor=anchor, relx=relx, rely=rely, relwidth=relwidth)
@@ -105,22 +105,6 @@ class CreateElement:
             frame = tk.Label(father, width=width, height=height, bg=bg, fg=fg, font=font, justify=justify, text=text, cursor=cursor)
             frame.place(anchor=anchor, relx=relx, rely=rely)
             return frame
-
-"""
-
-        Vou fazer o seguinte: seguindo a mesma lógica do createFrame, irei executar um metodo por vez
-    informando uma lista de cada tipo por vez. Ela vai receber o mesmo tratamento da lista de frame info
-    obtendo o pai com .pop e definindo numa variavel. Essa variavel vai ser usada para obter o valor do 
-    pai do elemento atual que esta contido na lista de frames, e depois vai instanciar em cadeia um novo
-    elemento, usando o metodo especifico do tipo, e passando a variavel father como pai, e **info como o 
-    resto das informações. Nisso, numa outra lista chamada elements, que no caso é um dicionario, esse 
-    elemento recem criado vai ser armazenado com .frame, ou seja, vai armazenar o proprio objeto tkinter,
-    e como chave, vai ter seu nome que foi definido na lista de info do seu tipo particular
-
-        Vou usar 4 dicionarios de dicionarios diferentes, um para botao, outro label, outro checkbutton, outro
-    input. Acaba que terei que fazer +4 for in, alem do for in dos frames.
-
-"""
 
 def create_window(largura, altura):
     root = tk.Tk()

@@ -20,9 +20,7 @@ def verif_columns_entry(input, output, sites):
         if output is not None:
             if len(input) == 1 and 'A' <= input.upper() <= 'Z':
                 if len(output) == 1 and 'A' <= output.upper() <= 'Z' and output.upper() != input.upper():
-                    if sites:
-                        return True
-                    else: return "MENSAGEM DE ERRO"
+                    return True
                 else: return "MENSAGEM DE ERRO"
             else: return "MENSAGEM DE ERRO"
         else: return "MENSAGEM DE ERRO"
