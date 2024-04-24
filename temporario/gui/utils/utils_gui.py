@@ -1,10 +1,10 @@
 import sys
 import tkinter as tk
-from PIL import Image, ImageTk
 
 sys.path.append("temporario")
 
 import gui.config.settings as settings
+import gui.config.sett2 as sett2
 
 class CreateFrame:
 
@@ -27,6 +27,9 @@ class CreateFrame:
 
 
 class CreateElement:
+
+    def __init__(self):
+        self.el_cmd = sett2.ElementCommand()
 
     def create_button(self, father, width, height, anchor, relx, rely, bg, activebg, fg, activefg, font, text, cursor, command, state, relwidth=None, relheight=None):
 
@@ -70,14 +73,18 @@ class CreateElement:
             return frame
 
     def create_input(self, father, width, anchor, relx, rely, bg, fg, font, cursor, textvariable, limit_lenght, state, relwidth=None):
+        locals()[textvariable] = tk.StringVar()
+        stringvar = locals()[textvariable]
+        stringvar.trace_add("write", lambda *args: (self.el_cmd.limit_lenght(stringvar, limit_lenght), stringvar))
         if relwidth != None:
-            frame = tk.Entry(father, bg=bg, fg=fg, font=font, cursor=cursor, textvariable=textvariable, state=state)
+            frame = tk.Entry(father, bg=bg, fg=fg, font=font, cursor=cursor, textvariable=stringvar, state=state)
             frame.place(anchor=anchor, relx=relx, rely=rely, relwidth=relwidth)
             return frame
         else:
-            frame = tk.Entry(father, width=width, bg=bg, fg=fg, font=font, cursor=cursor, textvariable=textvariable, state=state)
+            frame = tk.Entry(father, width=width, bg=bg, fg=fg, font=font, cursor=cursor, textvariable=stringvar, state=state)
             frame.place(anchor=anchor, relx=relx, rely=rely)
             return frame
+        
 
     def create_label(self, father, width, height, anchor, relx, rely, bg, fg, font, justify, text, cursor, relwidth=None, relheight=None):
         if relheight or relwidth != None:
