@@ -1,4 +1,5 @@
 import tkinter as tk
+from . import sett2
 
 class FrameConfig:
     def __init__(self):
@@ -109,13 +110,13 @@ class ElementConfig:
             
             "align_right_button": {"father":"alignment_ri_def", "width":0, "height":0, "anchor":"center", "relx":0.5, "rely":0.5, "bg":"#F9F0F0", "activebg":"lightgray", "fg":"black", "activefg":"#1A1110", "font":"helvetica 15 bold", "text":"→", "cursor":"hand2", "command":lambda: print(0), "relwidth":0.9, "relheight":0.9, "state":tk.NORMAL},
             
-            "border_top_button": {"father":"border_up_select", "width":0, "height":0, "anchor":"center", "relx":0.5, "rely":0.5, "bg":"#F9F0F0", "activebg":"lightgray", "fg":"black", "activefg":"#1A1110", "font":"helvetica 12", "text":"─", "cursor":"hand2", "command":lambda: print(0), "relwidth":0.8, "relheight":0.8, "state":tk.NORMAL},
+            "border_top_button": {"father":"border_up_select", "width":0, "height":0, "anchor":"center", "relx":0.5, "rely":0.5, "bg":"#F9F0F0", "activebg":"lightgray", "fg":"black", "activefg":"#1A1110", "font":"helvetica 12", "text":"─", "cursor":"hand2", "command":lambda: self.elements["border_top_button"].config(bg="red") if sett2.el_cmd.select_border("top", "cell") else self.elements["border_top_button"].config(bg="black"), "relwidth":0.8, "relheight":0.8, "state":tk.NORMAL},
             
-            "border_bottom_button": {"father":"border_low_select", "width":0, "height":0, "anchor":"center", "relx":0.5, "rely":0.5, "bg":"#F9F0F0", "activebg":"lightgray", "fg":"black", "activefg":"#1A1110", "font":"helvetica 12", "text":"─", "cursor":"hand2", "command":lambda: print(0), "relwidth":0.8, "relheight":0.8, "state":tk.NORMAL},
+            "border_bottom_button": {"father":"border_low_select", "width":0, "height":0, "anchor":"center", "relx":0.5, "rely":0.5, "bg":"#F9F0F0", "activebg":"lightgray", "fg":"black", "activefg":"#1A1110", "font":"helvetica 12", "text":"─", "cursor":"hand2", "command":lambda: self.elements["border_bottom_button"].config(bg="red") if sett2.el_cmd.select_border("bottom", "cell") else self.elements["border_bottom_button"].config(bg="black"), "relwidth":0.8, "relheight":0.8, "state":tk.NORMAL},
             
-            "border_left_button": {"father":"border_le_select", "width":0, "height":0, "anchor":"center", "relx":0.5, "rely":0.5, "bg":"#F9F0F0", "activebg":"lightgray", "fg":"black", "activefg":"#1A1110", "font":"helvetica 12", "text":"│", "cursor":"hand2", "command":lambda: print(0), "relwidth":0.8, "relheight":0.8, "state":tk.NORMAL},
+            "border_left_button": {"father":"border_le_select", "width":0, "height":0, "anchor":"center", "relx":0.5, "rely":0.5, "bg":"#F9F0F0", "activebg":"lightgray", "fg":"black", "activefg":"#1A1110", "font":"helvetica 12", "text":"│", "cursor":"hand2", "command":lambda: self.elements["border_left_button"].config(bg="red") if sett2.el_cmd.select_border("left", "cell") else self.elements["border_left_button"].config(bg="black"), "relwidth":0.8, "relheight":0.8, "state":tk.NORMAL},
             
-            "border_right_button": {"father":"border_ri_select", "width":0, "height":0, "anchor":"center", "relx":0.5, "rely":0.5, "bg":"#F9F0F0", "activebg":"lightgray", "fg":"black", "activefg":"#1A1110", "font":"helvetica 12", "text":"│", "cursor":"hand2", "command":lambda: print(0), "relwidth":0.8, "relheight":0.8, "state":tk.NORMAL},
+            "border_right_button": {"father":"border_ri_select", "width":0, "height":0, "anchor":"center", "relx":0.5, "rely":0.5, "bg":"#F9F0F0", "activebg":"lightgray", "fg":"black", "activefg":"#1A1110", "font":"helvetica 12", "text":"│", "cursor":"hand2", "command":lambda: self.elements["border_right_button"].config(bg="red") if sett2.el_cmd.select_border("right", "cell") else self.elements["border_right_button"].config(bg="black"), "relwidth":0.8, "relheight":0.8, "state":tk.NORMAL},
             
             "color_ac_button": {"father":"color_ac_select", "width":0, "height":0, "anchor":"center", "relx":0.5, "rely":0.5, "bg":"#F9F0F0", "activebg":"lightgray", "fg":"black", "activefg":"#1A1110", "font":"helvetica 10", "text":"☰", "cursor":"hand2", "command":lambda: print(0), "relwidth":0.9, "relheight":0.9, "state":tk.NORMAL},
             
@@ -183,3 +184,6 @@ class ElementConfig:
             
             "color_bo_label": {"father":"color_bo_select_title", "width":0, "height":0, "anchor":"center", "relx":0.5, "rely":0.5, "bg":"#FFFDFB", "fg":"black", "font":"helvetica 10 bold", "justify":"center", "text":"Bordas", "cursor":"arrow", "relwidth":1, "relheight":1},
         }
+
+frame_config = FrameConfig()
+element_config = ElementConfig()

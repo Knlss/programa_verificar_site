@@ -180,7 +180,7 @@ def toggle_menu_color():
         color_menu_acessible.pack()
 
 # FAZER ABAIXO NO ARQUIVO gui_utils
-"""
+
 
 def border_config():
     global cell_border_left
@@ -247,7 +247,7 @@ def border_config():
         end_border_edges_top = None
         end_border_edges_bottom = None
 
-"""
+
 
 def mudar_cor(cor):
     global border_color

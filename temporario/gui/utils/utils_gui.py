@@ -112,32 +112,35 @@ def create_window(largura, altura):
     root.resizable(False, False)
     return root
 
+def root_click(event):
+    if event.num == 1:  # Verifica se o evento é um clique esquerdo do mouse
+            dc = sett2.gen_cfg.styles["border_styles"]["cell_border_left"]
+            print(dc)
+
 def main():
 
-    frame_config = settings.FrameConfig()
-    element_config = settings.ElementConfig()
-
     root = create_window(1250, 650)
-    frame_config.frames["root"] = root
+    root.bind("<Button-1>", root_click)
+    settings.frame_config.frames["root"] = root
 
     for item_type, item_info in [
-            (frame_config.frames_pack_info, CreateFrame().create_pack_frame),
-            (frame_config.frames_grid_info, CreateFrame().create_grid_frame),
-            (frame_config.frames_place_info, CreateFrame().create_place_frame),
-            (element_config.elements_button_info, CreateElement().create_button),
-            (element_config.elements_entry_info, CreateElement().create_input),
-            (element_config.elements_checkbutton_info, CreateElement().create_checkbutton),
-            (element_config.elements_label_info, CreateElement().create_label)
+            (settings.frame_config.frames_pack_info, CreateFrame().create_pack_frame),
+            (settings.frame_config.frames_grid_info, CreateFrame().create_grid_frame),
+            (settings.frame_config.frames_place_info, CreateFrame().create_place_frame),
+            (settings.element_config.elements_button_info, CreateElement().create_button),
+            (settings.element_config.elements_entry_info, CreateElement().create_input),
+            (settings.element_config.elements_checkbutton_info, CreateElement().create_checkbutton),
+            (settings.element_config.elements_label_info, CreateElement().create_label)
         ]:
         for item_name, info in item_type.items():
             instance = item_info
             father_key = info.pop("father")
-            father = frame_config.frames[father_key]
+            father = settings.frame_config.frames[father_key]
             frame = instance(father, **info)
-            if item_type is frame_config.frames_pack_info or item_type is frame_config.frames_grid_info or item_type is frame_config.frames_place_info:
-                frame_config.frames[item_name] = frame
+            if item_type is settings.frame_config.frames_pack_info or item_type is settings.frame_config.frames_grid_info or item_type is settings.frame_config.frames_place_info:
+                settings.frame_config.frames[item_name] = frame
             else:
-                element_config.elements[item_name] = frame
+                settings.element_config.elements[item_name] = frame
 
 
     root.mainloop()
