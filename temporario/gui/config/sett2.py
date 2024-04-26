@@ -105,6 +105,23 @@ class ElementCommand:
             self.gen_cfg.styles["border_styles"][f"{format}_border_{border}"] = None
             return False
         
+    def select_alignment(self, alignment, le_btn, ce_btn, ri_btn):
+            self.gen_cfg.styles["cell_styles"]["alignment_cell"] = Alignment(horizontal=alignment, vertical='center')
+            if alignment == "left":
+                le = le_btn.config(bg="gray")
+                ce = ce_btn.config(bg="#F9F0F0")
+                ri = ri_btn.config(bg="#F9F0F0")
+                return le, ce, ri
+            elif alignment == "center":
+                le = le_btn.config(bg="#F9F0F0")
+                ce = ce_btn.config(bg="gray")
+                ri = ri_btn.config(bg="#F9F0F0")
+                return le, ce, ri
+            elif alignment == "right":
+                le = le_btn.config(bg="#F9F0F0")
+                ce = ce_btn.config(bg="#F9F0F0")
+                ri = ri_btn.config(bg="gray")
+                return le, ce, ri
 
     def process_file(self):
 
