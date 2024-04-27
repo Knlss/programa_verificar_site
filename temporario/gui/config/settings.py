@@ -85,7 +85,9 @@ class FrameConfig:
             "path_select":  {"father":"folder_select", "width":250, "height":20, "anchor":"center", "relx":0.5, "rely":0.7, "bg":"#FFFDFB"},
 
             "archive_select_title": {"father":"folder_select", "width":180, "height":20, "anchor":"center", "relx":0.5, "rely":0.15, "bg":"#FFFDFB"},
-            "path_select_title": {"father":"folder_select", "width":180, "height":20, "anchor":"center", "relx":0.5, "rely":0.55, "bg":"#FFFDFB"}
+            "path_select_title": {"father":"folder_select", "width":180, "height":20, "anchor":"center", "relx":0.5, "rely":0.55, "bg":"#FFFDFB"},
+
+            "colors_cell_choose_frame": {"father":"color_section_config", "width":180, "height":100, "anchor":"center", "relx":0.5, "rely":0.5, "bg":"cyan"},
         }
 
 class ElementConfig:
@@ -122,7 +124,23 @@ class ElementConfig:
 
             "color_in_button": {"father":"color_in_select", "width":0, "height":0, "anchor":"center", "relx":0.5, "rely":0.5, "bg":"#F9F0F0", "activebg":"lightgray", "fg":"black", "activefg":"#1A1110", "font":"helvetica 10", "text":"☰", "cursor":"hand2", "command":lambda: print(0), "relwidth":0.9, "relheight":0.9, "state":tk.NORMAL},
             
-            "color_bo_button": {"father":"color_bo_select", "width":0, "height":0, "anchor":"center", "relx":0.5, "rely":0.5, "bg":"#F9F0F0", "activebg":"lightgray", "fg":"black", "activefg":"#1A1110", "font":"helvetica 10", "text":"☰", "cursor":"hand2", "command":lambda: print(0), "relwidth":0.9, "relheight":0.9, "state":tk.NORMAL}
+            "color_bo_button": {"father":"color_bo_select", "width":0, "height":0, "anchor":"center", "relx":0.5, "rely":0.5, "bg":"#F9F0F0", "activebg":"lightgray", "fg":"black", "activefg":"#1A1110", "font":"helvetica 10", "text":"☰", "cursor":"hand2", "command":lambda: print(0), "relwidth":0.9, "relheight":0.9, "state":tk.NORMAL},
+
+            "choose_color_black": {"father":"colors_cell_choose_frame", "width":0, "height":0, "anchor":"nw", "relx":0.0277777, "rely":0.066, "bg":"black", "activebg":"lightgray", "fg":"black", "activefg":"black", "font":"helvetica", "text":None, "cursor":"hand2", "command":lambda: print(0), "relwidth":0.22222, "relheight":0.4, "state":tk.NORMAL},
+
+            "choose_color_yellow": {"father":"colors_cell_choose_frame", "width":0, "height":0, "anchor":"nw", "relx":0.2683333333, "rely":0.066, "bg":"yellow", "activebg":"lightgray", "fg":"black", "activefg":"black", "font":"helvetica", "text":None, "cursor":"hand2", "command":lambda: print(0), "relwidth":0.22222, "relheight":0.4, "state":tk.NORMAL},
+
+            "choose_color_red": {"father":"colors_cell_choose_frame", "width":0, "height":0, "anchor":"nw", "relx":0.50888888, "rely":0.066, "bg":"red", "activebg":"lightgray", "fg":"black", "activefg":"black", "font":"helvetica", "text":None, "cursor":"hand2", "command":lambda: print(0), "relwidth":0.22222, "relheight":0.4, "state":tk.NORMAL},
+
+            "choose_color_purple": {"father":"colors_cell_choose_frame", "width":0, "height":0, "anchor":"nw", "relx":0.74944444444, "rely":0.066, "bg":"purple", "activebg":"lightgray", "fg":"black", "activefg":"black", "font":"helvetica", "text":None, "cursor":"hand2", "command":lambda: print(0), "relwidth":0.22222, "relheight":0.4, "state":tk.NORMAL},
+
+            "choose_color_blue": {"father":"colors_cell_choose_frame", "width":0, "height":0, "anchor":"sw", "relx":0.0277777, "rely":0.934, "bg":"blue", "activebg":"lightgray", "fg":"black", "activefg":"black", "font":"helvetica", "text":None, "cursor":"hand2", "command":lambda: print(0), "relwidth":0.22222, "relheight":0.4, "state":tk.NORMAL},
+
+            "choose_color_green": {"father":"colors_cell_choose_frame", "width":0, "height":0, "anchor":"sw", "relx":0.2683333333, "rely":0.934, "bg":"green", "activebg":"lightgray", "fg":"black", "activefg":"black", "font":"helvetica", "text":None, "cursor":"hand2", "command":lambda: print(0), "relwidth":0.22222, "relheight":0.4, "state":tk.NORMAL},
+
+            "choose_color_gray": {"father":"colors_cell_choose_frame", "width":0, "height":0, "anchor":"sw", "relx":0.50888888, "rely":0.934, "bg":"gray", "activebg":"lightgray", "fg":"black", "activefg":"black", "font":"helvetica", "text":None, "cursor":"hand2", "command":lambda: print(0), "relwidth":0.22222, "relheight":0.4, "state":tk.NORMAL},
+
+            "choose_color_white": {"father":"colors_cell_choose_frame", "width":0, "height":0, "anchor":"sw", "relx":0.74944444444, "rely":0.934, "bg":"white", "activebg":"lightgray", "fg":"black", "activefg":"black", "font":"helvetica", "text":None, "cursor":"hand2", "command":lambda: print(0), "relwidth":0.22222, "relheight":0.4, "state":tk.NORMAL},
         }
 
         self.elements_checkbutton_info = {

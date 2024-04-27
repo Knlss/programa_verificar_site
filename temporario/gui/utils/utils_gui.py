@@ -115,7 +115,7 @@ def create_window(largura, altura):
 def root_click(event):
     if event.num == 1:  # Verifica se o evento é um clique esquerdo do mouse
             dc = sett2.gen_cfg.styles["border_styles"]["cell_border_left"]
-            dc = sett2.gen_cfg.styles["cell_styles"]["alignment_cell"]
+            dd = sett2.gen_cfg.styles["cell_styles"]["alignment_cell"]
             print(dc)
 
 def main():

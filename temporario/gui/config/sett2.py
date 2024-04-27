@@ -56,7 +56,8 @@ class GeneralConfig:
             "generals": {
             "status_label": None,
             "first_cell_size": 13,
-            "verified_sites": 0
+            "verified_sites": 0,
+            "colors": ["black", "yellow", "red", "purple", "blue", "green", "gray", "white"]
             }
         }
 
