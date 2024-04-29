@@ -106,6 +106,38 @@ class ElementCommand:
             self.gen_cfg.styles["border_styles"][f"{format}_border_{border}"] = None
             return False
         
+    def select_colors(self, father, target):
+        nm = 0
+        dicts = {
+            "relxy": {
+                "btn1": [0.0277777, 0.066],
+                "btn2": [0.2683333333, 0.066],
+                "btn3": [0.50888888, 0.066],
+                "btn4": [0.74944444444, 0.066],
+                "btn5": [0.0277777, 0.934],
+                "btn6": [0.2683333333, 0.934],
+                "btn7": [0.50888888, 0.934],
+                "btn8": [0.74944444444, 0.934]
+            },
+            "relwh": {
+                "btn1": [],
+                "btn2": [],
+                "btn3": [],
+                "btn4": [],
+                "btn5": [],
+                "btn6": [],
+                "btn7": [],
+                "btn8": []
+            }
+        }
+        for i, color in self.gen_cfg.cmd_config["generals"]["colors"]:
+            nm += 1
+            btn = tk.Button(father, width=0, height=0, bg=color, cursor="hand2", state=tk.NORMAL)
+            if nm <= 4:
+                btn.place(anchor="nw", relx=, rely=, relheight=, relwidth=)
+            elif nm >= 5: 
+                btn.place(anchor="sw", relx=, rely=, relheight=, relwidth=)
+        
     def select_alignment(self, alignment, le_btn, ce_btn, ri_btn):
             self.gen_cfg.styles["cell_styles"]["alignment_cell"] = Alignment(horizontal=alignment, vertical='center')
             if alignment == "left":
